@@ -14,8 +14,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private Shader baseUnitMaterial;
     [SerializeField] private Shader selectedUnitMaterial;
-    [SerializeField]
-    private List<NavMeshAgent> selectedUnit;
+    [SerializeField] private List<NavMeshAgent> selectedUnit;
 
     private Vector3 defaultPosition;
     private Vector3 selectionBoxStart;
@@ -46,7 +45,8 @@ public class CameraManager : MonoBehaviour
             selectBoxRect.sizeDelta = Vector3.zero;
             selectBoxRect.gameObject.SetActive(true);
 
-            ClearUnitList();
+            if (!Input.GetKey(KeyCode.RightShift) || !Input.GetKey(KeyCode.RightControl))
+                ClearUnitList();
 
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -91,7 +91,7 @@ public class CameraManager : MonoBehaviour
                 foreach (Collider col in colliders)
                 {
                     if (col.gameObject.CompareTag("Unit") == true)
-                    { 
+                    {
                         col.GetComponent<MeshRenderer>().material.shader = selectedUnitMaterial;
                         selectedUnit.Add(col.GetComponent<NavMeshAgent>());
                     }
@@ -103,19 +103,7 @@ public class CameraManager : MonoBehaviour
             if (Input.GetMouseButtonDown(1))
                 GiveOrderToUnits();
 
-    }
-
-    private void OnDrawGizmos()
-    {
-        //Gizmos.color = Color.green;
-
-        //Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        //{
-        //    Gizmos.DrawCube(selectionBoxStart + new Vector3((hit.point - selectionBoxStart).x / 2f, 1.5f, (hit.point - selectionBoxStart).z / 2f),
-        //            new Vector3(Mathf.Abs((hit.point - selectionBoxStart).x), 3f, Mathf.Abs((hit.point - selectionBoxStart).z / 2f)));
-        //}
+        ClearDeadUnits();
     }
 
     private void CameraMovement()
@@ -166,6 +154,9 @@ public class CameraManager : MonoBehaviour
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        //int layer = LayerMask.NameToLayer("Enemy");
+        //int raycastLayer = ~(1 << layer);
+
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             if (hit.collider.gameObject.CompareTag("Ground") == true)
@@ -179,6 +170,20 @@ public class CameraManager : MonoBehaviour
             // else if collider == enemy
             // else if collider == ressources
 
+        }
+    }
+
+    private void ClearDeadUnits()
+    {
+        if (selectedUnit != null)
+        {
+            foreach (NavMeshAgent unit in selectedUnit)
+            {
+                if (unit == null)
+                {
+                    selectedUnit.Remove(unit);
+                }
+            }
         }
     }
 }
