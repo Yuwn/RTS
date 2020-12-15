@@ -1,25 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Unit : MonoBehaviour
+public class UI_Manager : MonoBehaviour
 {
-    public int health = 0;
+    [SerializeField] private GameObject buildingWindow;
+    [SerializeField] private Text buildingName;
 
-    bool isSelected = false;
+    public string strBuildingName;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = 100;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        
     }
 }

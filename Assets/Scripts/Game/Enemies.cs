@@ -23,7 +23,6 @@ public class Enemies : MonoBehaviour
     private Collider[] hitColliders = null;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -74,11 +73,11 @@ public class Enemies : MonoBehaviour
                     cooldownAttack = 0;
                     if (go.gameObject.tag == "Unit")
                     {
-                        go.GetComponent<Unit>().health -= 50;
+                        go.GetComponent<Unit>().health -= 40;
                     }
                     else if (go.gameObject.tag == "Barrack" && canDestroyBuilding)
                     {
-                        go.GetComponent<Building>().health -= 5;
+                        //go.GetComponent<Building>().health -= 5;
                     }
                 }
             }

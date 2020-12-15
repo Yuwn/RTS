@@ -71,8 +71,10 @@ GameObject:
   - component: {fileID: 1403858237303573284}
   - component: {fileID: 1403858237303573286}
   - component: {fileID: 1883031512897943637}
+  - component: {fileID: 1403858237303573283}
   - component: {fileID: 1403858237303573288}
   - component: {fileID: 2013763071}
+  - component: {fileID: 2013763070}
   m_Layer: 0
   m_Name: Barrack
   m_TagString: Barrack
@@ -145,6 +147,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403858237303573289}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1403858237303573283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403858237303573289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67db548f5e1b54f94fa072ea2a8af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrackPanel: {fileID: 0}
+  slavePrefabs: {fileID: 8461880518352834895, guid: f5e6ec67ac89edc4c9cb4b9bb2e96fc6, type: 3}
+  unitSpawnPos: {fileID: 1682678390}
+  unitDestPos: {fileID: 1742256151}
 --- !u!65 &1403858237303573288
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -174,3 +192,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &2013763070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403858237303573289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e706cc2c3cd3dda4bba349ed3b4e5246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
