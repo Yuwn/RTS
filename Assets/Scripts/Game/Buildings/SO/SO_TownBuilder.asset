@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: SO_TownBuilder
   m_EditorClassIdentifier: 
   buildingType: 0
-  BuildingPrefab: {fileID: 5530929790818978573, guid: 98f08633f4b9427428c61eacbb86701f, type: 3}
+  BuildingPrefab: {fileID: 3902427808372092818, guid: 98f08633f4b9427428c61eacbb86701f, type: 3}
   healthMax: 200
-  ui_window: {fileID: 0}
-  ui_buildingName: {fileID: 0}
-  buildingName: 0
+  buildingName: 1
   unitBuildable: 01000000

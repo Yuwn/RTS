@@ -159,11 +159,4 @@ public class Selection : MonoBehaviour
         }
     }
 
-    private void SpawnTownBuilding()
-    {
-        //WeaponScriptableObject dropWeapon = Instantiate(droppableWeapons[Random.Range(0, droppableWeapons.Length)]);
-        //dropWeapon.dropPrefab.weapon = dropWeapon;
-        //GameObject go = Instantiate(dropWeapon.dropPrefab.gameObject);
-        //go.transform.position = transform.position;
-    }
 }

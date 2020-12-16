@@ -41,7 +41,7 @@ public class Unit : MonoBehaviour
 
     private void healthUI()
     {
-        Debug.Log(health);
+        //Debug.Log(health);
 
         healthImg.fillAmount = health / (float)maxHealth;
 

@@ -8,12 +8,13 @@ public class BuildingSO : ScriptableObject
     [HideInInspector] public Enums.BuildingType buildingType = 0;
 
     [Space]
-    public GameObject BuildingPrefab = null;
+    public Building BuildingPrefab = null;
 
     [Header("Stats")]
     public int healthMax = 0;
 
-    [Header("UI")]
-    [SerializeField] private GameObject ui_window = null;
-    [SerializeField] private Text ui_buildingName = null;
+    public void OnClick()
+    {
+        Debug.Log("on click");
+    }
 }

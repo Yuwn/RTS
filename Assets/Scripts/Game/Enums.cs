@@ -15,9 +15,8 @@ public class Enums
     {
         None,
         TownHall, // To build slaves
-        Barrack, // build soldiers
-
-        Hospital // Heal units near
+        Barrack // build soldiers
+        //Hospital // Heal units near
     }
     public enum Building_Farm
     {
