@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5530929790818978560}
   - component: {fileID: 5530929790818978562}
   - component: {fileID: 5015762970752170097}
+  - component: {fileID: 3902427808372092818}
   - component: {fileID: 5530929790818978572}
   - component: {fileID: 6897912605090764251}
-  - component: {fileID: 3902427808372092818}
+  - component: {fileID: -5952689289995040152}
   m_Layer: 9
   m_Name: TownHall
   m_TagString: TownHall
@@ -28,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5530929790818978573}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 6, y: 2, z: 3}
   m_Children:
@@ -86,6 +87,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5530929790818978573}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &3902427808372092818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5530929790818978573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e706cc2c3cd3dda4bba349ed3b4e5246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 11400000, guid: 2849c5b2013cbf84f9ac844ef13ea946, type: 2}
+  unitsInCreation: 
+  InitPos: {fileID: 6897912604892848723}
+  DestPos: {fileID: 6897912604883220540}
+  debugTimeToBuildUnit: 2
+  curTimeBuilder: 0
 --- !u!65 &5530929790818978572
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -115,19 +134,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &3902427808372092818
-MonoBehaviour:
+--- !u!208 &-5952689289995040152
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5530929790818978573}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e706cc2c3cd3dda4bba349ed3b4e5246, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  building: {fileID: 11400000, guid: 2849c5b2013cbf84f9ac844ef13ea946, type: 2}
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6897912604883220531
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6897912604892848723}
   m_Layer: 9
-  m_Name: spawnPos
+  m_Name: SpawnPos
   m_TagString: Untagged
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

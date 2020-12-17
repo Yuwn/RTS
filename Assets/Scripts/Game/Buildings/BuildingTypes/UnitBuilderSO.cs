@@ -10,6 +10,8 @@ public class UnitBuilderSO : BuildingSO
 
     [Header("Unit buildable")]
     public Enums.UnitName[] unitBuildable = null;
+    public GameObject slavePrefabs = null;
+
 
     private UnitBuilderSO()
     {

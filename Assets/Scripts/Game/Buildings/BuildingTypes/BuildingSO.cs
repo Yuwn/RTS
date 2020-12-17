@@ -8,7 +8,7 @@ public class BuildingSO : ScriptableObject
     [HideInInspector] public Enums.BuildingType buildingType = 0;
 
     [Space]
-    public Building BuildingPrefab = null;
+    public Building buildingPrefab = null;
 
     [Header("Stats")]
     public int healthMax = 0;

@@ -85,7 +85,10 @@ public class Selection : MonoBehaviour
                 else
                 {
                     // No building selected
-                    UI_Manager.instance.activeBuilding = null;
+                    if (!hit.collider.gameObject.CompareTag("BuildingUI"))
+                    {
+                        UI_Manager.instance.activeBuilding = null;
+                    }
 
                     Collider[] colliders = Physics.OverlapBox(selectionBoxStart + new Vector3((hit.point - selectionBoxStart).x / 2f, 1.5f, (hit.point - selectionBoxStart).z / 2f),
                         new Vector3(Mathf.Abs((hit.point - selectionBoxStart).x) / 2f, 1.5f, Mathf.Abs((hit.point - selectionBoxStart).z / 2f)));

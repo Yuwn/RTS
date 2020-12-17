@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
-    // CE QUE J'ETAIS ENTRAIN DE FAIRE
-    /*
-     * La liaison entre le batiment et l'ui
-     */
     public static UI_Manager instance;
 
     [SerializeField] private GameObject buildingWindow_bg = null;
@@ -23,36 +19,29 @@ public class UI_Manager : MonoBehaviour
     private Image buildingWindow_CreationUnitBar_fill = null;
     private Text buildingWindow_CreationUnitCount = null;
 
-    public Building activeBuilding = null;
-
     [HideInInspector] public bool isWinOpened = false;
 
-
-    private int creationUnitCount = 0;
+    public Building activeBuilding = null;
+    private int unitsInCreationCount = 0;
 
     private void Start()
     {
         instance = this;
+
+        buildingWindow_unitsButtons[0].onClick.AddListener(() => UnitCreation(Enums.UnitName.Slave));
+        buildingWindow_unitsButtons[1].onClick.AddListener(() => UnitCreation(Enums.UnitName.Soldier));
+        buildingWindow_unitsButtons[2].onClick.AddListener(() => UnitCreation(Enums.UnitName.Grenadier));
+        buildingWindow_unitsButtons[3].onClick.AddListener(() => UnitCreation(Enums.UnitName.Sniper));
+        buildingWindow_unitsButtons[4].onClick.AddListener(() => UnitCreation(Enums.UnitName.Gunner));
     }
 
     // Update is called once per frame
     void Update()
     {
         WindowGateKeeper();
+        WindowOpener();
 
-
-        // CREATION UNIT BAR
-        if (buildingWindow_CreationUnitCount != null)
-        {
-            if (creationUnitCount > 0)
-            {
-                buildingWindow_CreationUnitBar.SetActive(true);
-            }
-            else
-            {
-                buildingWindow_CreationUnitBar.SetActive(false);
-            }
-        }
+        UnitCreationBar();
     }
 
     private void WindowGateKeeper()
@@ -79,13 +68,13 @@ public class UI_Manager : MonoBehaviour
     {
         if (activeBuilding != null)
         {
-            if (activeBuilding.building.BuildingPrefab.name == "TownHall")
+            if (activeBuilding.building.buildingPrefab.name == "TownHall")
             {
-
+                buildingWindow_unitGrid[0].SetActive(true);
             }
-            else if (activeBuilding.building.BuildingPrefab.name == "Barrack")
+            else if (activeBuilding.building.buildingPrefab.name == "Barrack")
             {
-
+                buildingWindow_unitGrid[1].SetActive(true);
             }
         }
     }
@@ -95,37 +84,35 @@ public class UI_Manager : MonoBehaviour
         buildingWindow_CreationUnitBar_fill.fillAmount = _curTimer / _max;
     }
 
-    public void Set_CreationUnitCount(int _count)
+    public void CreationUnitCount()
     {
-        buildingWindow_CreationUnitCount.text = _count.ToString();
-        creationUnitCount = _count;
+        if (activeBuilding != null)
+        {
+            unitsInCreationCount = activeBuilding.unitsInCreation.Count;
+        }
+        else
+        {
+            unitsInCreationCount = 0;
+        }
+        buildingWindow_CreationUnitCount.text = unitsInCreationCount.ToString();
     }
 
-    private void OnUnitButtonClick()
+    private void UnitCreationBar()
     {
-        if (isWinOpened)
+        // CREATION UNIT BAR
+        if (unitsInCreationCount > 0)
         {
-            if (buildingWindow_unitGrid[0].activeSelf)
-            {
-                buildingWindow_unitsButtons[0].onClick.AddListener(() => UnitCreation(Enums.UnitName.Slave));
-            }
-            else if (buildingWindow_unitGrid[1].activeSelf)
-            {
-                buildingWindow_unitsButtons[1].onClick.AddListener(() => UnitCreation(Enums.UnitName.Soldier));
-                buildingWindow_unitsButtons[2].onClick.AddListener(() => UnitCreation(Enums.UnitName.Grenadier));
-                buildingWindow_unitsButtons[3].onClick.AddListener(() => UnitCreation(Enums.UnitName.Sniper));
-                buildingWindow_unitsButtons[4].onClick.AddListener(() => UnitCreation(Enums.UnitName.Gunner));
-            }
-
+            buildingWindow_CreationUnitBar.SetActive(true);
+        }
+        else
+        {
+            buildingWindow_CreationUnitBar.SetActive(false);
         }
     }
 
     public void UnitCreation(Enums.UnitName _unit)
     {
-        // TownHall
-        if (_unit == Enums.UnitName.Slave)
-        {
-
-        }
+        Debug.Log("Add unit to creation");
+        activeBuilding.unitsInCreation.Add(_unit);
     }
 }

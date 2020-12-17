@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BuildingSpawner : MonoBehaviour
 {
     private Camera mainCamera = null;
     [SerializeField] private UnitBuilderSO[] droppableUnitBuilder = null;
+
 
 
     public void Start()
@@ -38,13 +40,12 @@ public class BuildingSpawner : MonoBehaviour
             {
                 UnitBuilderSO dropBuilding = Instantiate(droppableUnitBuilder[Random.Range(0, droppableUnitBuilder.Length)]);
 
-                GameObject go = Instantiate(dropBuilding.BuildingPrefab.gameObject);
+                GameObject go = Instantiate(dropBuilding.buildingPrefab.gameObject);
                 go.GetComponent<Building>().building = dropBuilding;
                 dropBuilding.buildingType = Enums.BuildingType.UnitBuilder;
                 go.transform.position = new Vector3(hit.point.x, go.transform.position.y, hit.point.z);
             }
         }
-
         yield return 0;
     }
 }

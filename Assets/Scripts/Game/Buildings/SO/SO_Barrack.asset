@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: SO_Barrack
   m_EditorClassIdentifier: 
   buildingType: 1
-  BuildingPrefab: {fileID: 0}
-  healthMax: 0
-  buildingName: 0
-  unitBuildable: 
+  buildingPrefab: {fileID: -369987304458709524, guid: b6827bfd415653a41965f0ac2d0d7362, type: 3}
+  healthMax: 150
+  buildingName: 2
+  unitBuildable: 02000000030000000400000005000000
+  slavePrefabs: {fileID: 8461880518352834895, guid: f5e6ec67ac89edc4c9cb4b9bb2e96fc6, type: 3}
