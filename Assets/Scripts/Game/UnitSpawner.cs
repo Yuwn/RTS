@@ -29,12 +29,12 @@ public class UnitSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (activeBuilding != null && unitToBuild != Enums.UnitName.None)
-        {
-            StartCoroutine(CreateUnit(activeBuilding, unitToBuild));
-            activeBuilding = null;
-            unitToBuild = Enums.UnitName.None;
-        }
+        //if (activeBuilding != null && unitToBuild != Enums.UnitName.None)
+        //{
+        //    StartCoroutine(CreateUnit(activeBuilding, unitToBuild));
+        //    activeBuilding = null;
+        //    unitToBuild = Enums.UnitName.None;
+        //}
     }
 
     public IEnumerator CreateUnit(Building _activeBuilding, Enums.UnitName _unitName)

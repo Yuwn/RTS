@@ -15,14 +15,14 @@ public class UI_Manager : MonoBehaviour
     public Text[] buildingWindow_unitsNames = null;
     public Text[] buildingWindow_unitsCost = null;
     [Header("Unit Creation Bar")]
-    public GameObject buildingWindow_CreationUnitBar = null;
-    private Image buildingWindow_CreationUnitBar_fill = null;
-    private Text buildingWindow_CreationUnitCount = null;
+    [SerializeField] private GameObject buildingWindow_CreationUnitBar = null;
+    [SerializeField] private Image buildingWindow_CreationUnitBar_fill = null;
+    [SerializeField] private Text buildingWindow_CreationUnitCount = null;
+    public int unitsInCreationCount = 0;
 
     [HideInInspector] public bool isWinOpened = false;
 
     public Building activeBuilding = null;
-    private int unitsInCreationCount = 0;
 
     private void Start()
     {
@@ -99,6 +99,8 @@ public class UI_Manager : MonoBehaviour
 
     private void UnitCreationBar()
     {
+        buildingWindow_CreationUnitCount.text = unitsInCreationCount.ToString();
+
         // CREATION UNIT BAR
         if (unitsInCreationCount > 0)
         {
@@ -112,7 +114,7 @@ public class UI_Manager : MonoBehaviour
 
     public void UnitCreation(Enums.UnitName _unit)
     {
-        Debug.Log("Add unit to creation");
+        //Debug.Log("Add unit to creation");
         activeBuilding.unitsInCreation.Add(_unit);
     }
 }

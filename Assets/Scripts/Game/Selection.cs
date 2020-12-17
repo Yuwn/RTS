@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Selection : MonoBehaviour
 {
@@ -16,7 +18,6 @@ public class Selection : MonoBehaviour
     [SerializeField] private RectTransform selectBoxRect = null;
     private Vector2 mousePosStart = Vector2.zero;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,7 @@ public class Selection : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ClearUnitList();
+            UI_Manager.instance.activeBuilding = null;
         }
 
         // WHEN LEFT CLIC
@@ -37,11 +39,6 @@ public class Selection : MonoBehaviour
             mousePosStart = Input.mousePosition;
             selectBoxRect.sizeDelta = Vector3.zero;
             selectBoxRect.gameObject.SetActive(true);
-
-            if (!Input.GetKey(KeyCode.RightShift))/* || !Input.GetKey(KeyCode.RightControl)*/
-            {
-                ClearUnitList();
-            }
 
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -69,27 +66,38 @@ public class Selection : MonoBehaviour
         // LEFT CLIC RELEASED
         if (Input.GetMouseButtonUp(0))
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            selectBoxRect.gameObject.SetActive(false);
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            RaycastHit2D hit2D = Physics2D.Raycast(Input.mousePosition, Vector2.one, Mathf.Infinity, ~5);
+            if (hit2D.collider == null)
             {
-                if (hit.collider.gameObject.CompareTag("TownHall")
-                    || hit.collider.gameObject.CompareTag("Barrack"))
+                Ray _ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit _hit = new RaycastHit();
+
+                if (Physics.Raycast(_ray, out _hit, Mathf.Infinity))
                 {
-                    ClearUnitList();
-                    UI_Manager.instance.activeBuilding = hit.collider.gameObject.GetComponent<Building>();
-                }
-                else
-                {
-                    // No building selected
-                    if (!hit.collider.gameObject.CompareTag("BuildingUI"))
+                    if (_hit.collider.gameObject.CompareTag("TownHall")
+                        || _hit.collider.gameObject.CompareTag("Barrack"))
+                    {
+                        UI_Manager.instance.activeBuilding = _hit.collider.gameObject.GetComponent<Building>();
+                    }
+                    else
                     {
                         UI_Manager.instance.activeBuilding = null;
                     }
+                }
+                ClearUnitList();
+            }
+            else
+            {
+                //Debug.Log(hit2D.collider.name);
+            }
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit = new RaycastHit();
 
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                if (!hit.collider.gameObject.CompareTag("TownHall")
+                    && !hit.collider.gameObject.CompareTag("Barrack"))
+                {
                     Collider[] colliders = Physics.OverlapBox(selectionBoxStart + new Vector3((hit.point - selectionBoxStart).x / 2f, 1.5f, (hit.point - selectionBoxStart).z / 2f),
                         new Vector3(Mathf.Abs((hit.point - selectionBoxStart).x) / 2f, 1.5f, Mathf.Abs((hit.point - selectionBoxStart).z / 2f)));
                     // check every unit in the selection box
@@ -111,13 +119,13 @@ public class Selection : MonoBehaviour
                     }
                 }
             }
+            selectBoxRect.gameObject.SetActive(false);
         }
 
-        if (selectedUnit.Count > 0)
-            if (Input.GetMouseButtonDown(1))
-                GiveOrderToUnits();
-
         ClearDeadUnits();
+
+        if (Input.GetMouseButtonDown(1))
+            GiveOrderToUnits();
     }
 
     private void ClearUnitList()
@@ -135,7 +143,7 @@ public class Selection : MonoBehaviour
         //Debug.Log("clic right mouse");
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        RaycastHit hit = new RaycastHit();
         //int layer = LayerMask.NameToLayer("Enemy");
         //int raycastLayer = ~(1 << layer);
 
@@ -143,9 +151,20 @@ public class Selection : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Ground") == true)
             {
-                foreach (NavMeshAgent agent in selectedUnit)
+                if (selectedUnit != null && selectedUnit.Count > 0)
                 {
-                    agent.destination = hit.point;
+                    foreach (NavMeshAgent agent in selectedUnit)
+                    {
+                        agent.destination = hit.point;
+                    }
+                }
+                else if (UI_Manager.instance.activeBuilding != null)
+                {
+                    if (UI_Manager.instance.activeBuilding.building.buildingType == Enums.BuildingType.UnitBuilder)
+                    {
+                        Debug.Log("change dest pos");
+                        //UI_Manager.instance.activeBuilding.DestPos.position = new Vector3(hit.collider.transform.position.x, UI_Manager.instance.activeBuilding.DestPos.position.y, hit.collider.transform.position.z);
+                    }
                 }
             }
             // else if collider == building

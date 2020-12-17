@@ -58,7 +58,7 @@ public class Building : MonoBehaviour
 
     private void OnBuildingClick()
     {
-        Debug.Log("On building click");
+        //Debug.Log("On building click");
 
         UI_Manager.instance.isWinOpened = true;
         UI_Manager.instance.buildingName.text = building.buildingPrefab.name;
@@ -91,9 +91,14 @@ public class Building : MonoBehaviour
     {
         curTimeBuilder += Time.deltaTime;
 
+        UI_Manager.instance.FillCreationUnitBar(curTimeBuilder, debugTimeToBuildUnit);
+        UI_Manager.instance.unitsInCreationCount = unitsInCreation.Count;
+
+
         if (unitsInCreation[unitsInCreation.Count - 1] == Enums.UnitName.Slave)
         {
-            Debug.Log("slave in creation...");
+            //Debug.Log("slave in creation...");
+
 
             if (curTimeBuilder > debugTimeToBuildUnit)
             {
@@ -102,7 +107,7 @@ public class Building : MonoBehaviour
                 GameObject go = Instantiate(((UnitBuilderSO)building).slavePrefabs);
                 go.transform.position = new Vector3(InitPos.transform.position.x, go.transform.position.y, InitPos.transform.position.z);
                 go.gameObject.GetComponent<NavMeshAgent>().destination = DestPos.transform.position;
-                Debug.Log("slave created");
+                //Debug.Log("slave created");
 
                 unitsInCreation.RemoveAt(unitsInCreation.Count - 1);
             }

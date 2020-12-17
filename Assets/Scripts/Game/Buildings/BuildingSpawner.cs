@@ -17,15 +17,19 @@ public class BuildingSpawner : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             CreateBuilding(Enums.Building_UnitBuilder.TownHall);
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            CreateBuilding(Enums.Building_UnitBuilder.Barrack);
         }
     }
 
     public void CreateBuilding(Enums.Building_UnitBuilder _unitBuilder)
     {
-        Debug.Log("Create Building");
+        //Debug.Log("Create Building");
         StartCoroutine(SpawnBuilding(_unitBuilder));
     }
 
@@ -38,12 +42,22 @@ public class BuildingSpawner : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Ground") == true)
             {
-                UnitBuilderSO dropBuilding = Instantiate(droppableUnitBuilder[Random.Range(0, droppableUnitBuilder.Length)]);
-
-                GameObject go = Instantiate(dropBuilding.buildingPrefab.gameObject);
-                go.GetComponent<Building>().building = dropBuilding;
-                dropBuilding.buildingType = Enums.BuildingType.UnitBuilder;
-                go.transform.position = new Vector3(hit.point.x, go.transform.position.y, hit.point.z);
+                if (_unitBuilder == Enums.Building_UnitBuilder.TownHall)
+                {
+                    UnitBuilderSO dropBuilding = Instantiate(droppableUnitBuilder[0]);
+                    GameObject go = Instantiate(dropBuilding.buildingPrefab.gameObject);
+                    go.GetComponent<Building>().building = dropBuilding;
+                    dropBuilding.buildingType = Enums.BuildingType.UnitBuilder;
+                    go.transform.position = new Vector3(hit.point.x, go.transform.position.y, hit.point.z);
+                }
+                else if (_unitBuilder == Enums.Building_UnitBuilder.Barrack)
+                {
+                    UnitBuilderSO dropBuilding = Instantiate(droppableUnitBuilder[1]);
+                    GameObject go = Instantiate(dropBuilding.buildingPrefab.gameObject);
+                    go.GetComponent<Building>().building = dropBuilding;
+                    dropBuilding.buildingType = Enums.BuildingType.UnitBuilder;
+                    go.transform.position = new Vector3(hit.point.x, go.transform.position.y, hit.point.z);
+                }
             }
         }
         yield return 0;

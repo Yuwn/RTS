@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 15664eba93b48e740bc9836eb3267a08
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 416f52bb482fda7479318e29fd9ac5d9
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Loader.unity
+    guid: e70bbbd492831df4c9853d2dffdd7f95
+  - enabled: 0
+    path: Assets/Packages/Cartoon_Texture_Pack/_MaterialLibrary/Cartoon_Texture_Presentation.unity
+    guid: b6d1c536a784f3c49b065d36ee742d7d
+  - enabled: 0
+    path: Assets/Packages/QuickOutline/Samples/Scenes/QuickOutline.unity
+    guid: f23712c79adc910408e872b127e825cf
   m_configObjects: {}
