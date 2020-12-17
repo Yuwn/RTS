@@ -7,10 +7,8 @@ using UnityEngine.UI;
 public class UnitSpawner : MonoBehaviour
 {
     [Header("Object needed")]
-    [SerializeField] private GameObject barrackPanel = null;
+
     [SerializeField] private GameObject slavePrefabs = null;
-    [SerializeField] private Image createBar = null;
-    [SerializeField] private Text unitUnQueueTxt = null;
 
     [Header("Spawn Pos")]
     [SerializeField] private GameObject unitSpawnPos = null;
@@ -59,7 +57,7 @@ public class UnitSpawner : MonoBehaviour
         // end error
     }
 
-    private void AddUnitInQueue()
+    public void AddUnitInQueue()
     {
         if (Input.GetKey(KeyCode.RightShift))
         {
@@ -113,17 +111,17 @@ public class UnitSpawner : MonoBehaviour
 
     private void CreationBarUpdate()
     {
-        unitUnQueueTxt.text = unitInQueue.ToString();
-        createBar.fillAmount = (unitCreation * 100 / timeToCreateUnit) / 100;
+        //      unitUnQueueTxt.text = unitInQueue.ToString();
+        //     createBar.fillAmount = (unitCreation * 100 / timeToCreateUnit) / 100;
     }
 
     public void OpenPanel()
     {
-        barrackPanel.SetActive(true);
+        //    barrackPanel.SetActive(true);
     }
 
     public void ClosePanel()
     {
-        barrackPanel.SetActive(false);
+        //     barrackPanel.SetActive(false);
     }
 }

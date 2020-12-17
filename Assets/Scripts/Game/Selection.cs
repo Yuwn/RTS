@@ -54,11 +54,6 @@ public class Selection : MonoBehaviour
                 //    //hit.collider.GetComponent<MeshRenderer>().material.shader = selectedUnitMaterial;
                 //    selectedUnit.Add(hit.collider.GetComponent<NavMeshAgent>());
                 //}
-
-                if (hit.collider.gameObject.CompareTag("Barrack") == true)
-                {
-                    hit.collider.gameObject.GetComponent<UnitSpawner>().OpenPanel();
-                }
             }
         }
 
@@ -81,22 +76,34 @@ public class Selection : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                Collider[] colliders = Physics.OverlapBox(selectionBoxStart + new Vector3((hit.point - selectionBoxStart).x / 2f, 1.5f, (hit.point - selectionBoxStart).z / 2f),
-                    new Vector3(Mathf.Abs((hit.point - selectionBoxStart).x) / 2f, 1.5f, Mathf.Abs((hit.point - selectionBoxStart).z / 2f)));
-                // check every unit in the selection box
-                foreach (Collider col in colliders)
+                if (hit.collider.gameObject.CompareTag("TownHall")
+                    || hit.collider.gameObject.CompareTag("Barrack"))
                 {
-                    if (col.gameObject.CompareTag("Unit") == true)
+                    ClearUnitList();
+                    UI_Manager.instance.activeBuilding = hit.collider.gameObject.GetComponent<Building>();
+                }
+                else
+                {
+                    // No building selected
+                    UI_Manager.instance.activeBuilding = null;
+
+                    Collider[] colliders = Physics.OverlapBox(selectionBoxStart + new Vector3((hit.point - selectionBoxStart).x / 2f, 1.5f, (hit.point - selectionBoxStart).z / 2f),
+                        new Vector3(Mathf.Abs((hit.point - selectionBoxStart).x) / 2f, 1.5f, Mathf.Abs((hit.point - selectionBoxStart).z / 2f)));
+                    // check every unit in the selection box
+                    foreach (Collider col in colliders)
                     {
-                        // do not select an unit a second time
-                        if (!col.GetComponent<Unit>().isSelected)
+                        if (col.gameObject.CompareTag("Unit") == true)
                         {
-                            // apply a selected material
-                            col.GetComponent<MeshRenderer>().material.shader = selectedUnitMaterial;
-                            // unit is selected
-                            col.GetComponent<Unit>().isSelected = true;
-                            // add unit to the select unit list
-                            selectedUnit.Add(col.GetComponent<NavMeshAgent>());
+                            // do not select an unit a second time
+                            if (!col.GetComponent<Unit>().isSelected)
+                            {
+                                // apply a selected material
+                                col.GetComponent<MeshRenderer>().material.shader = selectedUnitMaterial;
+                                // unit is selected
+                                col.GetComponent<Unit>().isSelected = true;
+                                // add unit to the select unit list
+                                selectedUnit.Add(col.GetComponent<NavMeshAgent>());
+                            }
                         }
                     }
                 }

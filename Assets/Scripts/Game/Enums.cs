@@ -42,7 +42,7 @@ public class Enums
         Mine // Explose in area when enemies units collide
     }
 
-    public enum UnitType
+    public enum UnitName
     {
         None = 0,
         Slave,

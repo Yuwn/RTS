@@ -15,7 +15,7 @@ public class UI_Manager : MonoBehaviour
     public Text buildingName = null;
     [Header("Buttons")]
     public GameObject[] buildingWindow_unitGrid = null; // 0=TownHall, 1=Barrack
-    public Button[] buildingWindow_unitsButtons = null;
+    public Button[] buildingWindow_unitsButtons = null; // 0=Slave, 1=Soldier, 2=Grenadier
     public Text[] buildingWindow_unitsNames = null;
     public Text[] buildingWindow_unitsCost = null;
     [Header("Unit Creation Bar")]
@@ -23,7 +23,10 @@ public class UI_Manager : MonoBehaviour
     private Image buildingWindow_CreationUnitBar_fill = null;
     private Text buildingWindow_CreationUnitCount = null;
 
+    public Building activeBuilding = null;
+
     [HideInInspector] public bool isWinOpened = false;
+
 
     private int creationUnitCount = 0;
 
@@ -35,15 +38,8 @@ public class UI_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isWinOpened)
-            buildingWindow_bg.SetActive(true);
-        else
-            buildingWindow_bg.SetActive(false);
+        WindowGateKeeper();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            isWinOpened = false;
-        }
 
         // CREATION UNIT BAR
         if (buildingWindow_CreationUnitCount != null)
@@ -59,6 +55,41 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
+    private void WindowGateKeeper()
+    {
+        if (activeBuilding == null)
+        {
+            buildingWindow_bg.SetActive(false);
+        }
+        else
+        {
+            if (!buildingWindow_bg.activeSelf)
+            {
+                buildingWindow_bg.SetActive(true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                activeBuilding = null;
+            }
+        }
+    }
+
+    private void WindowOpener()
+    {
+        if (activeBuilding != null)
+        {
+            if (activeBuilding.building.BuildingPrefab.name == "TownHall")
+            {
+
+            }
+            else if (activeBuilding.building.BuildingPrefab.name == "Barrack")
+            {
+
+            }
+        }
+    }
+
     public void FillCreationUnitBar(float _curTimer, float _max)
     {
         buildingWindow_CreationUnitBar_fill.fillAmount = _curTimer / _max;
@@ -68,5 +99,33 @@ public class UI_Manager : MonoBehaviour
     {
         buildingWindow_CreationUnitCount.text = _count.ToString();
         creationUnitCount = _count;
+    }
+
+    private void OnUnitButtonClick()
+    {
+        if (isWinOpened)
+        {
+            if (buildingWindow_unitGrid[0].activeSelf)
+            {
+                buildingWindow_unitsButtons[0].onClick.AddListener(() => UnitCreation(Enums.UnitName.Slave));
+            }
+            else if (buildingWindow_unitGrid[1].activeSelf)
+            {
+                buildingWindow_unitsButtons[1].onClick.AddListener(() => UnitCreation(Enums.UnitName.Soldier));
+                buildingWindow_unitsButtons[2].onClick.AddListener(() => UnitCreation(Enums.UnitName.Grenadier));
+                buildingWindow_unitsButtons[3].onClick.AddListener(() => UnitCreation(Enums.UnitName.Sniper));
+                buildingWindow_unitsButtons[4].onClick.AddListener(() => UnitCreation(Enums.UnitName.Gunner));
+            }
+
+        }
+    }
+
+    public void UnitCreation(Enums.UnitName _unit)
+    {
+        // TownHall
+        if (_unit == Enums.UnitName.Slave)
+        {
+
+        }
     }
 }

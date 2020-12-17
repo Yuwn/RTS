@@ -48,8 +48,12 @@ public class Building : MonoBehaviour
 
             if (building.BuildingPrefab.name == "TownHall")
             {
-
+                foreach (GameObject grid in UI_Manager.instance.buildingWindow_unitGrid)
+                    if (grid.activeInHierarchy)
+                        grid.SetActive(false);
+                UI_Manager.instance.buildingWindow_unitGrid[0].SetActive(true);
             }
         }
+
     }
 }
