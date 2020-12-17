@@ -30,6 +30,13 @@ public class Unit : MonoBehaviour
         Fighting
     }
 
+    public enum UnitLastJob
+    {
+        Null,
+        Logging,
+        Harvesting
+    }
+
 
     [HideInInspector] public int health = 0;
     [HideInInspector] public int maxHealth = 100;
@@ -50,6 +57,7 @@ public class Unit : MonoBehaviour
 
 
     private UnitState state = UnitState.Idle;
+    private UnitLastJob lastJob = UnitLastJob.Null;
     private UnitState nextState = 0;
 
 
@@ -69,7 +77,7 @@ public class Unit : MonoBehaviour
     void Update()
     {
         healthUI();
- 
+
         ActionBehaviour();
         Death();
     }
@@ -89,6 +97,7 @@ public class Unit : MonoBehaviour
                     OnIdleExit();
                 }
                 break;
+
             case UnitState.GoTo_Tree:
                 if (nextState == UnitState.GoTo_Tree)
                 {
@@ -100,6 +109,7 @@ public class Unit : MonoBehaviour
                     OnGoToTreeExit();
                 }
                 break;
+
             case UnitState.Logging:
                 if (nextState == UnitState.Logging)
                 {
@@ -111,6 +121,31 @@ public class Unit : MonoBehaviour
                     OnLoggingExit();
                 }
                 break;
+
+            case UnitState.GoTo_Bush:
+                if (nextState == UnitState.GoTo_Bush)
+                {
+                    OnGoToFoodEnter();
+                }
+                OnGoToFoodUpdate();
+                if (nextState != UnitState.Null)
+                {
+                    OnGoToFoodExit();
+                }
+                break;
+
+            case UnitState.Harvesting:
+                if (nextState == UnitState.Harvesting)
+                {
+                    OnHarvestingEnter();
+                }
+                OnHarvestingUpdate();
+                if (nextState != UnitState.Null)
+                {
+                    OnHarvestingExit();
+                }
+                break;
+
             case UnitState.GoTo_Stockage:
                 if (nextState == UnitState.GoTo_Stockage)
                 {
@@ -121,6 +156,15 @@ public class Unit : MonoBehaviour
                 {
                     OnGoToBarrackExit();
                 }
+                break;
+
+            case UnitState.GoTo_Enemy:
+                break;
+
+            case UnitState.Fighting:
+                break;
+
+            default:
                 break;
         }
         if (nextState != UnitState.Null)
@@ -170,7 +214,7 @@ public class Unit : MonoBehaviour
     #region Idle
     private void OnIdleEnter()
     {
-        Debug.Log("IdleEnter");
+        //Debug.Log("IdleEnter");
         nextState = UnitState.Null;
         target = null;
     }
@@ -183,13 +227,16 @@ public class Unit : MonoBehaviour
     }
     private void OnIdleExit()
     {
-        Debug.Log("IdleExit");
+        //Debug.Log("IdleExit");
     }
     #endregion
 
     #region GoToTree
     private void OnGoToTreeEnter()
     {
+        lastJob = UnitLastJob.Logging;
+
+        //Debug.Log("Go to tree");
         NavMeshHit hit;
         NavMesh.SamplePosition(target.transform.position, out hit, 5f, -1);
         dest = hit.position;
@@ -209,13 +256,16 @@ public class Unit : MonoBehaviour
     }
     private void OnGoToTreeExit()
     {
-        Debug.Log("Leaving tree");
+        //Debug.Log("Leaving tree");
     }
     #endregion
 
     #region GoToFood
     private void OnGoToFoodEnter()
     {
+        lastJob = UnitLastJob.Harvesting;
+
+        //Debug.Log("Go to berries");
         NavMeshHit hit;
         NavMesh.SamplePosition(target.transform.position, out hit, 5f, -1);
         dest = hit.position;
@@ -235,7 +285,7 @@ public class Unit : MonoBehaviour
     }
     private void OnGoToFoodExit()
     {
-        Debug.Log("Leaving berries");
+        //Debug.Log("Leaving berries");
     }
     #endregion
 
@@ -253,7 +303,7 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            target.GetComponent<Wood>().TakeDamages(25f * Time.deltaTime);
+            target.GetComponent<Wood>().TakeDamages(10f * Time.deltaTime);
         }
     }
     private void OnLoggingExit()
@@ -339,7 +389,10 @@ public class Unit : MonoBehaviour
             {
                 target = nextTarget;
                 nextTarget = null;
-                ChangeState(UnitState.GoTo_Tree);
+                if (lastJob == UnitLastJob.Harvesting)
+                    ChangeState(UnitState.GoTo_Bush);
+                else if (lastJob == UnitLastJob.Logging)
+                    ChangeState(UnitState.GoTo_Tree);
             }
             else
             {

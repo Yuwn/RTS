@@ -41,6 +41,8 @@ public class Enemies : MonoBehaviour
     {
         if (!isChasing)
         {
+            navMesh.SetDestination(transform.position);
+
             hitColliders = Physics.OverlapSphere(transform.position, detectionDist);
             foreach (Collider hitCollider in hitColliders)
             {

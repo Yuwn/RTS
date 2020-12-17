@@ -9,7 +9,8 @@ public class Selection : MonoBehaviour
 {
     [Header("Object needed")]
     [SerializeField] private Camera mainCamera = null;
-    [SerializeField] private List<NavMeshAgent> selectedUnit = null;
+    [SerializeField] private List<Unit> selectedUnit = null;
+    //[SerializeField] private List<NavMeshAgent> selectedUnit = null;
 
     [SerializeField] private Shader unselectedUnitMaterial = null;
     [SerializeField] private Shader selectedUnitMaterial = null;
@@ -21,7 +22,7 @@ public class Selection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        selectedUnit = new List<NavMeshAgent>();
+        selectedUnit = new List<Unit>();
     }
 
     // Update is called once per frame
@@ -66,6 +67,7 @@ public class Selection : MonoBehaviour
         // LEFT CLIC RELEASED
         if (Input.GetMouseButtonUp(0))
         {
+
             RaycastHit2D hit2D = Physics2D.Raycast(Input.mousePosition, Vector2.one, Mathf.Infinity, ~5);
             if (hit2D.collider == null)
             {
@@ -75,7 +77,8 @@ public class Selection : MonoBehaviour
                 if (Physics.Raycast(_ray, out _hit, Mathf.Infinity))
                 {
                     if (_hit.collider.gameObject.CompareTag("TownHall")
-                        || _hit.collider.gameObject.CompareTag("Barrack"))
+                        || _hit.collider.gameObject.CompareTag("Barrack")
+                        || _hit.collider.gameObject.CompareTag("Storage"))
                     {
                         UI_Manager.instance.activeBuilding = _hit.collider.gameObject.GetComponent<Building>();
                     }
@@ -90,13 +93,15 @@ public class Selection : MonoBehaviour
             {
                 //Debug.Log(hit2D.collider.name);
             }
+
+
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit = new RaycastHit();
-
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if (!hit.collider.gameObject.CompareTag("TownHall")
-                    && !hit.collider.gameObject.CompareTag("Barrack"))
+                    && !hit.collider.gameObject.CompareTag("Barrack")
+                    && !hit.collider.gameObject.CompareTag("Storage"))
                 {
                     Collider[] colliders = Physics.OverlapBox(selectionBoxStart + new Vector3((hit.point - selectionBoxStart).x / 2f, 1.5f, (hit.point - selectionBoxStart).z / 2f),
                         new Vector3(Mathf.Abs((hit.point - selectionBoxStart).x) / 2f, 1.5f, Mathf.Abs((hit.point - selectionBoxStart).z / 2f)));
@@ -113,7 +118,7 @@ public class Selection : MonoBehaviour
                                 // unit is selected
                                 col.GetComponent<Unit>().isSelected = true;
                                 // add unit to the select unit list
-                                selectedUnit.Add(col.GetComponent<NavMeshAgent>());
+                                selectedUnit.Add(col.GetComponent<Unit>());
                             }
                         }
                     }
@@ -128,16 +133,6 @@ public class Selection : MonoBehaviour
             GiveOrderToUnits();
     }
 
-    private void ClearUnitList()
-    {
-        foreach (NavMeshAgent agent in selectedUnit)
-        {
-            agent.GetComponent<Unit>().isSelected = false;
-            agent.GetComponent<MeshRenderer>().material.shader = unselectedUnitMaterial;
-        }
-        selectedUnit.Clear();
-    }
-
     private void GiveOrderToUnits()
     {
         //Debug.Log("clic right mouse");
@@ -150,16 +145,35 @@ public class Selection : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             // collider == ground
-            if (hit.collider.gameObject.CompareTag("Ground") == true)
+            if (selectedUnit != null && selectedUnit.Count > 0)
             {
-                if (selectedUnit != null && selectedUnit.Count > 0)
+                if (hit.collider.CompareTag("Ground") == true)
                 {
-                    foreach (NavMeshAgent agent in selectedUnit)
+                    foreach (Unit unit in selectedUnit)
                     {
-                        agent.destination = hit.point;
+                        unit.SetDestination(hit.point);
                     }
                 }
-                else if (UI_Manager.instance.activeBuilding != null)
+                else if (hit.collider.CompareTag("Tree") == true)
+                {
+                    foreach (Unit unit in selectedUnit)
+                    {
+                        unit.target = hit.collider.gameObject;
+                        unit.ChangeState(Unit.UnitState.GoTo_Tree);
+                    }
+                }
+               else if (hit.collider.CompareTag("Food") == true)
+                {
+                    foreach (Unit unit in selectedUnit)
+                    {
+                        unit.target = hit.collider.gameObject;
+                        unit.ChangeState(Unit.UnitState.GoTo_Bush);
+                    }
+                }
+            }
+            else if (UI_Manager.instance.activeBuilding != null)
+            {
+                if (hit.collider.gameObject.CompareTag("Ground") == true)
                 {
                     if (UI_Manager.instance.activeBuilding.building.buildingType == Enums.BuildingType.UnitBuilder)
                     {
@@ -174,11 +188,23 @@ public class Selection : MonoBehaviour
         }
     }
 
+    private void ClearUnitList()
+    {
+        foreach (Unit unit in selectedUnit)
+        {
+            unit.GetComponent<MeshRenderer>().material.shader = unselectedUnitMaterial;
+            unit.GetComponent<Unit>().isSelected = false;
+            unit.leaderToAgent = Vector3.zero;
+            unit.leader = null;
+        }
+        selectedUnit.Clear();
+    }
+
     private void ClearDeadUnits()
     {
         if (selectedUnit != null)
         {
-            foreach (NavMeshAgent unit in selectedUnit)
+            foreach (Unit unit in selectedUnit)
             {
                 if (unit == null)
                 {
