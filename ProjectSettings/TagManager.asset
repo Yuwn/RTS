@@ -13,6 +13,8 @@ TagManager:
   - BuildingUI
   - TownHall
   - Storage
+  - Tree
+  - Food
   layers:
   - Default
   - TransparentFX
