@@ -44,17 +44,13 @@ public class CameraManager : MonoBehaviour
 
         // ZOOM
         Vector3 zoom = new Vector3(0f, 0f, Input.GetAxis("Mouse ScrollWheel"));
-        if (transform.position.y > minMaxZoom.x && zoom.normalized.z < 0f)
+        if (transform.position.y > minMaxZoom.x && zoom.normalized.z > 0f || transform.position.y > minMaxZoom.y && zoom.normalized.z < 0f)
         {
-            transform.Translate(zoom, Space.Self);
-        }
-        else if (transform.position.y < minMaxZoom.y && zoom.normalized.z < 0f)
-        {
-            transform.Translate(zoom, Space.Self);
+            transform.Translate(zoom * zoomSpeed * Time.deltaTime, Space.Self);
         }
 
         // RESET POS CAM
-        if (Input.GetKeyDown(KeyCode.Mouse2))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             transform.position = defaultPosition;
         }

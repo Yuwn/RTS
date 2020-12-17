@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -5952689289995040152}
   m_Layer: 9
   m_Name: Storage
-  m_TagString: TownHall
+  m_TagString: Storage
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
