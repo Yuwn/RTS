@@ -7,7 +7,7 @@ public class Enums
         None,
         UnitBuilder,
         Defenses,
-        Resources,
+        Farm,
         Upgrader
     }
 
@@ -21,6 +21,7 @@ public class Enums
     public enum Building_Farm
     {
         None,
+        Storage, // Increase resources max, storage
         Farm, // to farm foods
         Sawmill // to seed wood near
     }
@@ -29,7 +30,6 @@ public class Enums
     {
         None,
         House, // Increase pop max
-        Stock, // Increase resources max
         Blacksmith // To upgrade units
     }
 

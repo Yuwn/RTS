@@ -149,6 +149,7 @@ public class Selection : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
+            // collider == ground
             if (hit.collider.gameObject.CompareTag("Ground") == true)
             {
                 if (selectedUnit != null && selectedUnit.Count > 0)
@@ -167,10 +168,9 @@ public class Selection : MonoBehaviour
                     }
                 }
             }
-            // else if collider == building
-            // else if collider == enemy
-            // else if collider == ressources
-
+            // collider == building
+            // collider == enemy
+            // collider == ressources
         }
     }
 

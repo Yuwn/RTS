@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - BuildingUI
   - TownHall
+  - Storage
   layers:
   - Default
   - TransparentFX

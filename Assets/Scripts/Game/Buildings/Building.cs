@@ -28,9 +28,6 @@ public class Building : MonoBehaviour
         {
             buildableUnitsCount = ((UnitBuilderSO)building).unitBuildable.Length;
         }
-
-        //InitPos = building.buildingPrefab.GetComponentsInChildren<GameObject>()[0].transform;
-        //DestPos = building.buildingPrefab.GetComponentsInChildren<GameObject>()[1].transform;
     }
 
     // Update is called once per frame
@@ -60,25 +57,14 @@ public class Building : MonoBehaviour
     {
         //Debug.Log("On building click");
 
-        UI_Manager.instance.isWinOpened = true;
-        UI_Manager.instance.buildingName.text = building.buildingPrefab.name;
-
-        foreach (GameObject grid in UI_Manager.instance.buildingWindow_unitGrid)
-            if (grid.activeInHierarchy)
-                grid.SetActive(false);
-
         if (building.buildingType == Enums.BuildingType.UnitBuilder)
         {
-
             if (building.buildingPrefab.name == "TownHall")
             {
-                UI_Manager.instance.buildingWindow_unitGrid[0].SetActive(true);
                 UI_Manager.instance.buildingWindow_unitsNames[0].text = ((UnitBuilderSO)building).unitBuildable[0].ToString();
             }
-
-            if (building.buildingPrefab.name == "Barrack")
+            else if (building.buildingPrefab.name == "Barrack")
             {
-                UI_Manager.instance.buildingWindow_unitGrid[1].SetActive(true);
                 UI_Manager.instance.buildingWindow_unitsNames[1].text = ((UnitBuilderSO)building).unitBuildable[1].ToString();
                 UI_Manager.instance.buildingWindow_unitsNames[2].text = ((UnitBuilderSO)building).unitBuildable[2].ToString();
                 UI_Manager.instance.buildingWindow_unitsNames[3].text = ((UnitBuilderSO)building).unitBuildable[3].ToString();
@@ -91,14 +77,9 @@ public class Building : MonoBehaviour
     {
         curTimeBuilder += Time.deltaTime;
 
-        UI_Manager.instance.FillCreationUnitBar(curTimeBuilder, debugTimeToBuildUnit);
-        UI_Manager.instance.unitsInCreationCount = unitsInCreation.Count;
-
-
         if (unitsInCreation[unitsInCreation.Count - 1] == Enums.UnitName.Slave)
         {
             //Debug.Log("slave in creation...");
-
 
             if (curTimeBuilder > debugTimeToBuildUnit)
             {

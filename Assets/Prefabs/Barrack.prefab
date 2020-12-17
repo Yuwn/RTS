@@ -160,10 +160,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: {fileID: 11400000, guid: c61cc89b32a463641934de709d684d2f, type: 2}
-  unitsInCreation: 
-  InitPos: {fileID: 1682678390}
-  DestPos: {fileID: 1742256151}
-  unitsInCreationCount: 0
+  unitsInCreation: 02000000030000000400000005000000
+  InitPos: {fileID: 1682678391}
+  DestPos: {fileID: 1742256152}
   debugTimeToBuildUnit: 2
   curTimeBuilder: 0
 --- !u!65 &1403858237303573288
