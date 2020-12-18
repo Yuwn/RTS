@@ -355,6 +355,7 @@ MonoBehaviour:
   maxHealth: 100
   isSelected: 0
   curType: 0
+  unitCost: 50
   navMeshAgent: {fileID: 8461880518352834890}
   leader: {fileID: 0}
   leaderToAgent: {x: 0, y: 0, z: 0}

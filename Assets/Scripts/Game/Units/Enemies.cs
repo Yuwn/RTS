@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemies : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Enemies : MonoBehaviour
     [Header("Caracteristiques")]
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private bool canDestroyBuilding = true;
-    private float health = 0;
+    public float health = 0;
     private float timeBetween2Attacks = 2;
     private float cooldownAttack = 0;
 
@@ -22,10 +23,16 @@ public class Enemies : MonoBehaviour
     private GameObject go = null;
     private Collider[] hitColliders = null;
 
+    [Header("UI")]
+    [SerializeField] private Canvas UI = null;
+    [SerializeField] private Image healthImg = null;
+    private Transform camTransform = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        camTransform = FindObjectOfType<Camera>().transform;
+
         health = maxHealth;
     }
 
@@ -35,6 +42,8 @@ public class Enemies : MonoBehaviour
         Detection();
 
         cooldownAttack += Time.deltaTime;
+
+        Death();
     }
 
     private void Detection()
@@ -65,6 +74,11 @@ public class Enemies : MonoBehaviour
     {
         if (go != null)
         {
+            //if (ClosestTarget() != go)
+            //{
+            //    go = ClosestTarget();
+            //}
+
             navMesh.SetDestination(go.transform.position);
 
             if (Vector3.Distance(transform.position, go.transform.position) <= 1.5f)
@@ -75,7 +89,7 @@ public class Enemies : MonoBehaviour
                     cooldownAttack = 0;
                     if (go.gameObject.tag == "Unit")
                     {
-                        go.GetComponent<Unit>().health -= 40;
+                        go.GetComponent<Unit>().health -= 20;
                     }
                     else if (go.gameObject.tag == "Barrack" && canDestroyBuilding)
                     {
@@ -93,6 +107,46 @@ public class Enemies : MonoBehaviour
         {
             isChasing = false;
             navMesh.destination = transform.position;
+        }
+    }
+
+    private GameObject ClosestTarget()
+    {
+        hitColliders = Physics.OverlapSphere(transform.position, detectionDist);
+        if (hitColliders != null)
+        {
+            foreach (Collider hitCollider in hitColliders)
+            {
+                if (go.gameObject != hitCollider.gameObject)
+                {
+                    float distanceFromCurTarget = Vector3.Distance(transform.position, go.transform.position);
+                    float distanceFromCollider = Vector3.Distance(transform.position, hitCollider.transform.position);
+
+                    if (distanceFromCurTarget > distanceFromCollider)
+                    {
+                        return hitCollider.gameObject;
+                    }
+                }
+            }
+        }
+        return go.gameObject;
+    }
+
+    private void healthUI()
+    {
+        //Debug.Log(health);
+
+        healthImg.fillAmount = health / (float)maxHealth;
+
+        UI.transform.LookAt(healthImg.transform.position + camTransform.forward);
+
+    }
+
+    private void Death()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -7,7 +7,14 @@ public class UI_Manager : MonoBehaviour
 {
     public static UI_Manager instance;
 
+    #region Resources
+    [Header("Resources Window")]
+    [SerializeField] private Text foodQuantityTxt = null;
+    [SerializeField] private Text woodQuantityTxt = null;
+    #endregion
+
     #region Buildings
+    [Header("Building Window")]
     [SerializeField] private GameObject buildingWindow_bg = null;
     public Text buildingName = null;
     [Header("Buttons")]
@@ -35,9 +42,10 @@ public class UI_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ResourcesWindowUpdate();
+
         WindowGateKeeper();
         WindowOpener();
-
         UnitCreationBar();
     }
 
@@ -85,8 +93,6 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-
-
     private void UnitCreationBar()
     {
         if (activeBuilding != null)
@@ -118,8 +124,12 @@ public class UI_Manager : MonoBehaviour
 
     public void UnitCreation(Enums.UnitName _unit)
     {
-        //Debug.Log("Add unit to creation");
-        activeBuilding.unitsInCreation.Add(_unit);
+        if (ResourcesManager.instance.FoodQuantity >= 50)
+        {
+            ResourcesManager.instance.UseFood(50);
+            //Debug.Log("Add unit to creation");
+            activeBuilding.unitsInCreation.Add(_unit);
+        }
     }
 
     private void InitListeners()
@@ -129,5 +139,15 @@ public class UI_Manager : MonoBehaviour
         buildingWindow_unitsButtons[2].onClick.AddListener(() => UnitCreation(Enums.UnitName.Grenadier));
         buildingWindow_unitsButtons[3].onClick.AddListener(() => UnitCreation(Enums.UnitName.Sniper));
         buildingWindow_unitsButtons[4].onClick.AddListener(() => UnitCreation(Enums.UnitName.Gunner));
+    }
+
+
+    private void ResourcesWindowUpdate()
+    {
+        if (foodQuantityTxt.text != ResourcesManager.instance.FoodQuantity.ToString())
+            foodQuantityTxt.text = ResourcesManager.instance.FoodQuantity.ToString();
+
+        if (woodQuantityTxt.text != ResourcesManager.instance.WoodQuantity.ToString())
+            woodQuantityTxt.text = ResourcesManager.instance.WoodQuantity.ToString();
     }
 }

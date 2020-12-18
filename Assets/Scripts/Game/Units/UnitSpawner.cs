@@ -39,17 +39,17 @@ public class UnitSpawner : MonoBehaviour
 
     public IEnumerator CreateUnit(Building _activeBuilding, Enums.UnitName _unitName)
     {
-        Building tmpActiveBuilding = _activeBuilding;
-        Enums.UnitName tmpUnitName = _unitName;
+        //Building tmpActiveBuilding = _activeBuilding;
+        //Enums.UnitName tmpUnitName = _unitName;
 
-        unitInQueue++;
-        Debug.Log("add slave in creation...");
-        yield return new WaitForSeconds(2f);
-        GameObject go = Instantiate(slavePrefabs);
-        go.transform.position = unitSpawnPos.transform.position;
-        go.gameObject.GetComponent<Unit>().GetComponent<NavMeshAgent>().destination = tmpActiveBuilding.DestPos.transform.position;
-        Debug.Log("slave created");
-        //go.transform.position = Vector3.up - Vector3.forward * 5 + Vector3.right * 4 + new Vector3(Random.value, 0f, Random.value);
+        //unitInQueue++;
+        //Debug.Log("add slave in creation...");
+        //yield return new WaitForSeconds(2f);
+        //GameObject go = Instantiate(slavePrefabs);
+        //go.transform.position = unitSpawnPos.transform.position;
+        //go.gameObject.GetComponent<Unit>().GetComponent<NavMeshAgent>().destination = tmpActiveBuilding.DestPos.transform.position;
+        //Debug.Log("slave created");
+        ////go.transform.position = Vector3.up - Vector3.forward * 5 + Vector3.right * 4 + new Vector3(Random.value, 0f, Random.value);
 
         yield return 0;
     }

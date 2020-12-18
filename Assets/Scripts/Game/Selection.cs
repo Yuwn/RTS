@@ -110,6 +110,7 @@ public class Selection : MonoBehaviour
                     {
                         if (col.gameObject.CompareTag("Unit") == true)
                         {
+                            Debug.Log("add unit to selection");
                             // do not select an unit a second time
                             if (!col.GetComponent<Unit>().isSelected)
                             {

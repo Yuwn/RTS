@@ -38,10 +38,12 @@ public class Unit : MonoBehaviour
     }
 
 
-    [HideInInspector] public int health = 0;
-    [HideInInspector] public int maxHealth = 100;
-    [HideInInspector] public bool isSelected = false;
-    [HideInInspector] public type curType = type.Slave;
+    public int health = 0;
+    public int maxHealth = 100;
+    public bool isSelected = false;
+    public type curType = type.Slave;
+
+    public int unitCost = 0;
 
     private int maxStock = 20;
     private int foodStock = 0;
@@ -55,10 +57,17 @@ public class Unit : MonoBehaviour
     private float speed = 0;
     private Vector3 dest;
 
-
     private UnitState state = UnitState.Idle;
     private UnitLastJob lastJob = UnitLastJob.Null;
     private UnitState nextState = 0;
+
+
+    private GameObject go = null;
+    private Collider[] hitColliders = null;
+    private float detectionDist = 3f;
+
+    private float timeBetween2Attacks = 2;
+    private float cooldownAttack = 0;
 
 
     // Start is called before the first frame update
@@ -80,6 +89,39 @@ public class Unit : MonoBehaviour
 
         ActionBehaviour();
         Death();
+
+        Fight();
+    }
+
+    private void Fight()
+    {
+        cooldownAttack += Time.deltaTime;
+
+        hitColliders = Physics.OverlapSphere(transform.position, detectionDist);
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject.tag == "Enemy")
+            {
+                go = hitCollider.gameObject;
+                break;
+            }
+        }
+
+        if (go != null)
+        {
+            if (Vector3.Distance(transform.position, go.transform.position) <= 2f)
+            {
+                // attack
+                if (cooldownAttack > timeBetween2Attacks)
+                {
+                    cooldownAttack = 0;
+                    if (go.gameObject.tag == "Enemy")
+                    {
+                        go.GetComponent<Enemies>().health -= 25;
+                    }
+                }
+            }
+        }
     }
 
     private void ActionBehaviour()
@@ -402,7 +444,14 @@ public class Unit : MonoBehaviour
     }
     private void OnGoToBarrackExit()
     {
-
+        if (lastJob == UnitLastJob.Harvesting)
+        {
+            ResourcesManager.instance.AddFood(40);
+        }
+        if (lastJob == UnitLastJob.Logging)
+        {
+            ResourcesManager.instance.AddWood(40);
+        }
     }
     #endregion
 
