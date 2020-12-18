@@ -47,6 +47,8 @@ public class Enemies : MonoBehaviour
         health = maxHealth;
 
         nextState = state;
+
+        StartCoroutine(Detection());
     }
 
     // Update is called once per frame
@@ -54,12 +56,11 @@ public class Enemies : MonoBehaviour
     {
         //ActionBehaviour();
 
-        Detection();
-
         cooldownAttack += Time.deltaTime;
 
         HealthUI();
         Death();
+
     }
 
     private void ActionBehaviour()
@@ -67,75 +68,72 @@ public class Enemies : MonoBehaviour
         switch (state)
         {
             case EnemyState.Idle:
+                Idle();
                 break;
+
             case EnemyState.Wanderer:
                 break;
+
             case EnemyState.Chasing:
+                Chasing();
                 break;
+
             case EnemyState.Attacking:
                 break;
+
             default:
                 break;
         }
     }
 
-
-    private void Detection()
+    private void Idle()
     {
-        if (!isChasing)
-        {
+        if (navMesh.destination != transform.position)
             navMesh.SetDestination(transform.position);
+    }
 
+    private IEnumerator Detection()
+    {
+        while (health > 0)
+        {
             hitColliders = Physics.OverlapSphere(transform.position, detectionDist);
             foreach (Collider hitCollider in hitColliders)
             {
                 if (hitCollider.gameObject.tag == "Unit" || (hitCollider.gameObject.tag == "Barrack" && canDestroyBuilding))
                 {
                     go = hitCollider.gameObject;
-                    isChasing = true;
+                    state = EnemyState.Chasing;
                     break;
                 }
             }
         }
-
-        if (isChasing)
-        {
-            Chasing();
-        }
+        yield return 0;
     }
 
     private void Chasing()
     {
-        if (go != null)
+        navMesh.SetDestination(go.transform.position);
+
+        if (Vector3.Distance(transform.position, go.transform.position) <= 1.5f)
         {
-            if (ClosestTarget() != null)
+            // attack
+            if (cooldownAttack > timeBetween2Attacks)
             {
-                go = ClosestTarget();
-            }
-
-            navMesh.SetDestination(go.transform.position);
-
-            if (Vector3.Distance(transform.position, go.transform.position) <= 1.5f)
-            {
-                // attack
-                if (cooldownAttack > timeBetween2Attacks)
+                cooldownAttack = 0;
+                if (go.gameObject.tag == "Unit")
                 {
-                    cooldownAttack = 0;
-                    if (go.gameObject.tag == "Unit")
-                    {
-                        go.GetComponent<Unit>().health -= 20;
-                    }
-                    else if (go.gameObject.tag == "Barrack" && canDestroyBuilding)
-                    {
-                        //go.GetComponent<Building>().health -= 5;
-                    }
+                    go.GetComponent<Unit>().health -= 20;
+                }
+                else if (go.gameObject.tag == "Barrack" && canDestroyBuilding)
+                {
+                    //go.GetComponent<Building>().health -= 5;
                 }
             }
-            else if (Vector3.Distance(transform.position, go.transform.position) >= detectionDist)
-            {
-                isChasing = false;
-                navMesh.destination = transform.position;
-            }
+        }
+        else if (Vector3.Distance(transform.position, go.transform.position) >= detectionDist)
+        {
+            isChasing = false;
+            navMesh.destination = transform.position;
         }
         else if (go.gameObject == null)
         {
@@ -183,7 +181,5 @@ public class Enemies : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-
 
 }
