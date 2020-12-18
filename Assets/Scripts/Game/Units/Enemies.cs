@@ -28,23 +28,57 @@ public class Enemies : MonoBehaviour
     [SerializeField] private Image healthImg = null;
     private Transform camTransform = null;
 
+    private enum EnemyState
+    {
+        Idle,
+        Wanderer,
+        Chasing,
+        Attacking
+    }
+
+    private EnemyState state = EnemyState.Idle;
+    private EnemyState nextState = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         camTransform = FindObjectOfType<Camera>().transform;
 
         health = maxHealth;
+
+        nextState = state;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //ActionBehaviour();
+
         Detection();
 
         cooldownAttack += Time.deltaTime;
 
+        HealthUI();
         Death();
     }
+
+    private void ActionBehaviour()
+    {
+        switch (state)
+        {
+            case EnemyState.Idle:
+                break;
+            case EnemyState.Wanderer:
+                break;
+            case EnemyState.Chasing:
+                break;
+            case EnemyState.Attacking:
+                break;
+            default:
+                break;
+        }
+    }
+
 
     private void Detection()
     {
@@ -74,10 +108,10 @@ public class Enemies : MonoBehaviour
     {
         if (go != null)
         {
-            //if (ClosestTarget() != go)
-            //{
-            //    go = ClosestTarget();
-            //}
+            if (ClosestTarget() != null)
+            {
+                go = ClosestTarget();
+            }
 
             navMesh.SetDestination(go.transform.position);
 
@@ -129,10 +163,10 @@ public class Enemies : MonoBehaviour
                 }
             }
         }
-        return go.gameObject;
+        return null;
     }
 
-    private void healthUI()
+    private void HealthUI()
     {
         //Debug.Log(health);
 
@@ -149,4 +183,7 @@ public class Enemies : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
+
 }
