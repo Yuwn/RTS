@@ -11,7 +11,7 @@ public class Building : MonoBehaviour
 
     private int buildableUnitsCount = 0;
 
-    public List<Enums.UnitName> unitsInCreation = null;
+    public List<Enums.UnitType> unitsInCreation = null;
 
     public Transform InitPos = null;
     public Transform DestPos = null;
@@ -77,7 +77,7 @@ public class Building : MonoBehaviour
     {
         curTimeBuilder += Time.deltaTime;
 
-        if (unitsInCreation[unitsInCreation.Count - 1] == Enums.UnitName.Slave)
+        if (unitsInCreation[unitsInCreation.Count - 1] == Enums.UnitType.Slave)
         {
             //Debug.Log("slave in creation...");
 

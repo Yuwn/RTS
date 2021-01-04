@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: -9038849650992462548}
   - component: {fileID: 137753319}
   m_Layer: 0
-  m_Name: Unit
+  m_Name: Soldier
   m_TagString: Unit
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -349,10 +349,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0e9db09dbdd884fb129ee644901d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unit: {fileID: 11400000, guid: 9296605d92f7cf84daaf16d3adcc1028, type: 2}
   UI: {fileID: 1360279795854245060}
   healthImg: {fileID: 9046377531702150393}
-  health: 100
-  maxHealth: 100
+  health: 0
   isSelected: 0
   curType: 0
   unitCost: 50

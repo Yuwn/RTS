@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7a60d09bd45d14492f80d825ea17ed, type: 3}
+  m_Name: SO_Soldier
+  m_EditorClassIdentifier: 
+  unitPrefab: {fileID: 8461880518352834895, guid: 14d2d91a88724bd40b828c6cd75def40, type: 3}
+  unitType: 2
+  maxHealth: 100
+  maxMoveSpeed: 3.5
+  atkSpeed: 1
+  atkDamage: 40
+  maxCapacity: 0
+  cost_food: 50
+  cost_wood: 5
+  job_harvester: 0
+  job_builder: 0
+  job_fighter: 1
+  job_demolition: 0
+  canUseSpells: 0
+  spell_aoe: 0
+  spell_monoCible: 0
+  spell_multiCible: 0

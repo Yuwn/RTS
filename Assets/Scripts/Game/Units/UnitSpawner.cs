@@ -18,7 +18,7 @@ public class UnitSpawner : MonoBehaviour
     private float unitCreation = 0;
 
     Building activeBuilding = null;
-    Enums.UnitName unitToBuild = 0;
+    Enums.UnitType unitToBuild = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +37,7 @@ public class UnitSpawner : MonoBehaviour
         //}
     }
 
-    public IEnumerator CreateUnit(Building _activeBuilding, Enums.UnitName _unitName)
+    public IEnumerator CreateUnit(Building _activeBuilding, Enums.UnitType _unitName)
     {
         //Building tmpActiveBuilding = _activeBuilding;
         //Enums.UnitName tmpUnitName = _unitName;
@@ -54,7 +54,7 @@ public class UnitSpawner : MonoBehaviour
         yield return 0;
     }
 
-    public void AddUnitToQueue(Building _activeBuilding, Enums.UnitName _unitName)
+    public void AddUnitToQueue(Building _activeBuilding, Enums.UnitType _unitName)
     {
         activeBuilding = _activeBuilding;
         unitToBuild = _unitName;

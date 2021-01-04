@@ -122,7 +122,7 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    public void UnitCreation(Enums.UnitName _unit)
+    public void UnitCreation(Enums.UnitType _unit)
     {
         if (ResourcesManager.instance.FoodQuantity >= 50)
         {
@@ -134,11 +134,11 @@ public class UI_Manager : MonoBehaviour
 
     private void InitListeners()
     {
-        buildingWindow_unitsButtons[0].onClick.AddListener(() => UnitCreation(Enums.UnitName.Slave));
-        buildingWindow_unitsButtons[1].onClick.AddListener(() => UnitCreation(Enums.UnitName.Soldier));
-        buildingWindow_unitsButtons[2].onClick.AddListener(() => UnitCreation(Enums.UnitName.Grenadier));
-        buildingWindow_unitsButtons[3].onClick.AddListener(() => UnitCreation(Enums.UnitName.Sniper));
-        buildingWindow_unitsButtons[4].onClick.AddListener(() => UnitCreation(Enums.UnitName.Gunner));
+        buildingWindow_unitsButtons[0].onClick.AddListener(() => UnitCreation(Enums.UnitType.Slave));
+        buildingWindow_unitsButtons[1].onClick.AddListener(() => UnitCreation(Enums.UnitType.Soldier));
+        buildingWindow_unitsButtons[2].onClick.AddListener(() => UnitCreation(Enums.UnitType.Grenadier));
+        buildingWindow_unitsButtons[3].onClick.AddListener(() => UnitCreation(Enums.UnitType.Sniper));
+        buildingWindow_unitsButtons[4].onClick.AddListener(() => UnitCreation(Enums.UnitType.Gunner));
     }
 
 

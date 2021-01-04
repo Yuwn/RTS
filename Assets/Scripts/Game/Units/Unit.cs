@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
+    //public UnitSO unit = null;
+
     [Header("UI")]
     [SerializeField] private Canvas UI = null;
     [SerializeField] private Image healthImg = null;
@@ -17,6 +17,7 @@ public class Unit : MonoBehaviour
         Slave,
         Soldier
     }
+
     public enum UnitState
     {
         Null,
@@ -39,7 +40,6 @@ public class Unit : MonoBehaviour
 
 
     public int health = 0;
-    public int maxHealth = 100;
     public bool isSelected = false;
     public type curType = type.Slave;
 
@@ -61,7 +61,6 @@ public class Unit : MonoBehaviour
     private UnitLastJob lastJob = UnitLastJob.Null;
     private UnitState nextState = 0;
 
-
     private GameObject go = null;
     private Collider[] hitColliders = null;
     private float detectionDist = 3f;
@@ -76,7 +75,7 @@ public class Unit : MonoBehaviour
         // UI
         camTransform = FindObjectOfType<Camera>().transform;
         // STATS
-        health = maxHealth;
+        health = 10;//unit.maxHealth;
         // JOB
         nextState = state;
         speed = navMeshAgent.speed;
@@ -217,10 +216,10 @@ public class Unit : MonoBehaviour
     {
         //Debug.Log(health);
 
-        healthImg.fillAmount = health / (float)maxHealth;
+        healthImg.fillAmount = health / (float)10f;
+        //healthImg.fillAmount = health / (float)unit.maxHealth;
 
         UI.transform.LookAt(healthImg.transform.position + camTransform.forward);
-
     }
 
     private void Death()
