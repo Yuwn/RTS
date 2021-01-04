@@ -14,7 +14,7 @@ public class BuildingSpawner : MonoBehaviour
 
     public void Start()
     {
-        mainCamera = FindObjectOfType<Camera>();
+        mainCamera = Camera.main;
     }
 
     public void Update()

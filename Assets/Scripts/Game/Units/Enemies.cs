@@ -105,9 +105,10 @@ public class Enemies : MonoBehaviour
                     state = EnemyState.Chasing;
                     break;
                 }
+                yield return null;
             }
+            yield return null;
         }
-        yield return 0;
     }
 
     private void Chasing()

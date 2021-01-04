@@ -18,9 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Loader.unity
     guid: e70bbbd492831df4c9853d2dffdd7f95
   - enabled: 0
-    path: Assets/Packages/Cartoon_Texture_Pack/_MaterialLibrary/Cartoon_Texture_Presentation.unity
+    path: Assets/Resources/Packages/Cartoon_Texture_Pack/_MaterialLibrary/Cartoon_Texture_Presentation.unity
     guid: b6d1c536a784f3c49b065d36ee742d7d
   - enabled: 0
-    path: Assets/Packages/QuickOutline/Samples/Scenes/QuickOutline.unity
+    path: Assets/Resources/Packages/QuickOutline/Samples/Scenes/QuickOutline.unity
     guid: f23712c79adc910408e872b127e825cf
   m_configObjects: {}

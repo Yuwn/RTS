@@ -230,7 +230,6 @@ public class Unit : MonoBehaviour
         }
     }
 
-
     private int IndexFromMask(int mask)
     {
         for (int i = 0; i < 32; ++i)
