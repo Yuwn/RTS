@@ -18,3 +18,5 @@ MonoBehaviour:
   buildingName: 1
   unitBuildable: 01000000
   slavePrefabs: {fileID: 8461880518352834895, guid: f5e6ec67ac89edc4c9cb4b9bb2e96fc6, type: 3}
+  droppableUnits:
+  - {fileID: 11400000, guid: 9296605d92f7cf84daaf16d3adcc1028, type: 2}

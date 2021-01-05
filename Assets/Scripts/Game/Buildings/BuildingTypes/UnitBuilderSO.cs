@@ -9,8 +9,10 @@ public class UnitBuilderSO : BuildingSO
     public Enums.Building_UnitBuilder buildingName = 0;
 
     [Header("Unit buildable")]
-    public Enums.UnitType[] unitBuildable = null;
-    public GameObject slavePrefabs = null;
+    public Enums.UnitName[] unitBuildable = null;
+    //public GameObject slavePrefabs = null;
+    
+    public UnitSO[] droppableUnits = null;
 
 
     private UnitBuilderSO()

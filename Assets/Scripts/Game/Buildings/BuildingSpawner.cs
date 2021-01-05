@@ -10,8 +10,6 @@ public class BuildingSpawner : MonoBehaviour
     [SerializeField] private UnitBuilderSO[] droppableUnitBuilder = null;
     [SerializeField] private FarmSO[] droppableFarm = null;
 
-
-
     public void Start()
     {
         mainCamera = Camera.main;
@@ -85,5 +83,4 @@ public class BuildingSpawner : MonoBehaviour
         }
         yield return 0;
     }
-
 }
