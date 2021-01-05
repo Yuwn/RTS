@@ -18,8 +18,10 @@ MonoBehaviour:
   maxMoveSpeed: 3.5
   atkSpeed: 1
   atkDamage: 20
+  isSelected: 0
   maxCapacity: 10
-  cost_food: 20
+  makingTime: 1
+  cost_food: 50
   cost_wood: 0
   job_harvester: 1
   job_builder: 1

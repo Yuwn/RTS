@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Unit", menuName = "Unit", order = 1)]
 
@@ -10,17 +9,19 @@ public class UnitSO : ScriptableObject
     public GameObject unitPrefab = null;
 
     [Header("Stats")]
-    public Enums.UnitType unitType = 0;
+    public Enums.UnitName unitType = 0;
     public int maxHealth = 0;
     public float maxMoveSpeed = 0;
     public float atkSpeed = 0;
     public int atkDamage = 0;
+    public bool isSelected = false;
 
     [Header("Inventory")]
     //private List<Resources> inventory = null;
     public int maxCapacity = 0;
 
     [Header("Cost")]
+    public float makingTime = 0;
     public int cost_food = 0;
     public int cost_wood = 0;
 

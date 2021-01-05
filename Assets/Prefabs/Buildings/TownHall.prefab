@@ -200,10 +200,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: {fileID: 11400000, guid: 2849c5b2013cbf84f9ac844ef13ea946, type: 2}
+  unitsInCreationRequest: []
+  unitsInCreationQueue: []
   unitsInCreation: 
   InitPos: {fileID: 6897912604892848723}
   DestPos: {fileID: 6897912604883220540}
-  debugTimeToBuildUnit: 2
+  debugTimeToBuildUnit: 0
   curTimeBuilder: 0
 --- !u!65 &5530929790818978572
 BoxCollider:
@@ -274,7 +276,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6897912604883220531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.28}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5530929790818978560}
@@ -304,7 +306,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6897912604892848722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.26}
+  m_LocalPosition: {x: 0, y: 0, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5530929790818978560}

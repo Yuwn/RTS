@@ -281,7 +281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8461880518352834895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.030029, y: 1, z: -9.286623}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 912859430936184401}
@@ -349,13 +349,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0e9db09dbdd884fb129ee644901d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 11400000, guid: 9296605d92f7cf84daaf16d3adcc1028, type: 2}
+  unit: {fileID: 11400000, guid: 1d8b943ef1bd41241b04fff63523f6dc, type: 2}
   UI: {fileID: 1360279795854245060}
   healthImg: {fileID: 9046377531702150393}
-  health: 0
-  isSelected: 0
-  curType: 0
-  unitCost: 50
+  health: 1
   navMeshAgent: {fileID: 8461880518352834890}
   leader: {fileID: 0}
   leaderToAgent: {x: 0, y: 0, z: 0}

@@ -4,19 +4,13 @@ using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
-    //public UnitSO unit = null;
+    public UnitSO unit = null;
 
     [Header("UI")]
     [SerializeField] private Canvas UI = null;
     [SerializeField] private Image healthImg = null;
 
     private Transform camTransform = null;
-
-    public enum type
-    {
-        Slave,
-        Soldier
-    }
 
     public enum UnitState
     {
@@ -38,23 +32,13 @@ public class Unit : MonoBehaviour
         Harvesting
     }
 
-
     public int health = 0;
-    public bool isSelected = false;
-    public type curType = type.Slave;
-
-    public int unitCost = 0;
-
-    private int maxStock = 20;
-    private int foodStock = 0;
-    private int woodStock = 0;
 
     [SerializeField] private NavMeshAgent navMeshAgent = null;
     [HideInInspector] public Unit leader = null;
     [HideInInspector] public Vector3 leaderToAgent = Vector3.zero;
     [HideInInspector] public GameObject target = null;
     private GameObject nextTarget = null;
-    private float speed = 0;
     private Vector3 dest;
 
     private UnitState state = UnitState.Idle;
@@ -78,12 +62,16 @@ public class Unit : MonoBehaviour
         health = 10;//unit.maxHealth;
         // JOB
         nextState = state;
-        speed = navMeshAgent.speed;
+
+        navMeshAgent.speed = unit.maxMoveSpeed;
+        //navMeshAgent.enabled = false;
+        Debug.Log("0 : " + transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("1 : " + transform.position);
         healthUI();
 
         ActionBehaviour();
@@ -247,7 +235,7 @@ public class Unit : MonoBehaviour
 
     public void SetDestination(Vector3 dest)
     {
-        navMeshAgent.destination = dest;
+        navMeshAgent.SetDestination(dest);
     }
 
 

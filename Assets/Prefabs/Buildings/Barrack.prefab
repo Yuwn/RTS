@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682678390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.52}
+  m_LocalPosition: {x: 0, y: 0, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1403858237303573284}
@@ -161,10 +161,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: {fileID: 11400000, guid: c61cc89b32a463641934de709d684d2f, type: 2}
-  unitsInCreation: 02000000030000000400000005000000
+  unitsInCreationRequest: []
+  unitsInCreationQueue: []
+  unitsInCreation: 
   InitPos: {fileID: 1682678391}
   DestPos: {fileID: 1742256152}
-  debugTimeToBuildUnit: 2
+  debugTimeToBuildUnit: 0
   curTimeBuilder: 0
 --- !u!65 &1403858237303573288
 BoxCollider:

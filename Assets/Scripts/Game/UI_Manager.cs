@@ -74,6 +74,7 @@ public class UI_Manager : MonoBehaviour
     {
         if (activeBuilding != null)
         {
+            Debug.Log(activeBuilding.name);
             foreach (GameObject grid in buildingWindow_unitGrid)
             {
                 grid.SetActive(false);
@@ -122,23 +123,29 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    public void UnitCreation(Enums.UnitType _unit)
+    public void ClickOnUnitCreationButton(Enums.UnitName _unit)
     {
-        if (ResourcesManager.instance.FoodQuantity >= 50)
+        //Debug.Log("Clic on button :" + _unit.ToString());
+        for (int i = 0; i < ((UnitBuilderSO)activeBuilding.building).droppableUnits.Length; i++)
         {
-            ResourcesManager.instance.UseFood(50);
-            //Debug.Log("Add unit to creation");
-            activeBuilding.unitsInCreation.Add(_unit);
+            if (((UnitBuilderSO)activeBuilding.building).droppableUnits[i].unitType == _unit)
+            {
+                //unitRequesting = Instantiate(((UnitBuilderSO)activeBuilding.building).droppableUnits[i]);
+                UnitSO unitRequesting = Instantiate(((UnitBuilderSO)activeBuilding.building).droppableUnits[i]);
+                activeBuilding.unitsInCreationRequest.Add(unitRequesting);
+                break;
+            }
         }
+        //Debug.Log(_unit.ToString() + " added in requesting queue");
     }
 
     private void InitListeners()
     {
-        buildingWindow_unitsButtons[0].onClick.AddListener(() => UnitCreation(Enums.UnitType.Slave));
-        buildingWindow_unitsButtons[1].onClick.AddListener(() => UnitCreation(Enums.UnitType.Soldier));
-        buildingWindow_unitsButtons[2].onClick.AddListener(() => UnitCreation(Enums.UnitType.Grenadier));
-        buildingWindow_unitsButtons[3].onClick.AddListener(() => UnitCreation(Enums.UnitType.Sniper));
-        buildingWindow_unitsButtons[4].onClick.AddListener(() => UnitCreation(Enums.UnitType.Gunner));
+        buildingWindow_unitsButtons[0].onClick.AddListener(() => ClickOnUnitCreationButton(Enums.UnitName.Slave));
+        buildingWindow_unitsButtons[1].onClick.AddListener(() => ClickOnUnitCreationButton(Enums.UnitName.Soldier));
+        buildingWindow_unitsButtons[2].onClick.AddListener(() => ClickOnUnitCreationButton(Enums.UnitName.Grenadier));
+        buildingWindow_unitsButtons[3].onClick.AddListener(() => ClickOnUnitCreationButton(Enums.UnitName.Sniper));
+        buildingWindow_unitsButtons[4].onClick.AddListener(() => ClickOnUnitCreationButton(Enums.UnitName.Gunner));
     }
 
 

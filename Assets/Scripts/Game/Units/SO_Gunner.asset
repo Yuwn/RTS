@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb7a60d09bd45d14492f80d825ea17ed, type: 3}
-  m_Name: SO_Soldier
+  m_Name: SO_Gunner
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 8461880518352834895, guid: 14d2d91a88724bd40b828c6cd75def40, type: 3}
-  unitType: 2
+  unitType: 5
   maxHealth: 100
   maxMoveSpeed: 3.5
   atkSpeed: 1
-  atkDamage: 40
+  atkDamage: 20
   isSelected: 0
   maxCapacity: 0
-  makingTime: 5
-  cost_food: 100
-  cost_wood: 5
+  makingTime: 7
+  cost_food: 200
+  cost_wood: 0
   job_harvester: 0
   job_builder: 0
   job_fighter: 1

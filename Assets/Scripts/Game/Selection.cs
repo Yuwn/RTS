@@ -112,12 +112,12 @@ public class Selection : MonoBehaviour
                         {
                             Debug.Log("add unit to selection");
                             // do not select an unit a second time
-                            if (!col.GetComponent<Unit>().isSelected)
+                            if (!col.GetComponent<Unit>().unit.isSelected)
                             {
                                 // apply a selected material
                                 col.GetComponent<MeshRenderer>().material.shader = selectedUnitMaterial;
                                 // unit is selected
-                                col.GetComponent<Unit>().isSelected = true;
+                                col.GetComponent<Unit>().unit.isSelected = true;
                                 // add unit to the select unit list
                                 selectedUnit.Add(col.GetComponent<Unit>());
                             }
@@ -194,7 +194,7 @@ public class Selection : MonoBehaviour
         foreach (Unit unit in selectedUnit)
         {
             unit.GetComponent<MeshRenderer>().material.shader = unselectedUnitMaterial;
-            unit.GetComponent<Unit>().isSelected = false;
+            unit.GetComponent<Unit>().unit.isSelected = false;
             unit.leaderToAgent = Vector3.zero;
             unit.leader = null;
         }
