@@ -9,7 +9,7 @@ public class UnitSO : ScriptableObject
     public GameObject unitPrefab = null;
 
     [Header("Stats")]
-    public Enums.UnitName unitType = 0;
+    public Enums.UnitName unitName = 0;
     public int maxHealth = 0;
     public float maxMoveSpeed = 0;
     public float atkSpeed = 0;

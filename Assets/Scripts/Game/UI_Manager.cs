@@ -99,9 +99,9 @@ public class UI_Manager : MonoBehaviour
         if (activeBuilding != null)
         {
             // FILL BAR
-            buildingWindow_CreationUnitBar_fill.fillAmount = activeBuilding.curTimeBuilder / activeBuilding.debugTimeToBuildUnit;
+            buildingWindow_CreationUnitBar_fill.fillAmount = activeBuilding.curTimeBuilder / activeBuilding.unitsInCreationQueue[unitsInCreationCount - 1].makingTime;
             // UNIT COUNT
-            unitsInCreationCount = activeBuilding.unitsInCreation.Count;
+            unitsInCreationCount = activeBuilding.unitsInCreationQueue.Count;
         }
         else
         {
@@ -128,7 +128,7 @@ public class UI_Manager : MonoBehaviour
         //Debug.Log("Clic on button :" + _unit.ToString());
         for (int i = 0; i < ((UnitBuilderSO)activeBuilding.building).droppableUnits.Length; i++)
         {
-            if (((UnitBuilderSO)activeBuilding.building).droppableUnits[i].unitType == _unit)
+            if (((UnitBuilderSO)activeBuilding.building).droppableUnits[i].unitName == _unit)
             {
                 //unitRequesting = Instantiate(((UnitBuilderSO)activeBuilding.building).droppableUnits[i]);
                 UnitSO unitRequesting = Instantiate(((UnitBuilderSO)activeBuilding.building).droppableUnits[i]);

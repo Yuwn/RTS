@@ -67,7 +67,7 @@ public class Building : MonoBehaviour
                 for (int i = 0; i < ((UnitBuilderSO)building).droppableUnits.Length; i++)
                 {
                     // SLAVE
-                    if (((UnitBuilderSO)building).droppableUnits[i].unitType == Enums.UnitName.Slave)
+                    if (((UnitBuilderSO)building).droppableUnits[i].unitName == Enums.UnitName.Slave)
                     {
                         UI_Manager.instance.buildingWindow_unitsNames[0].text = ((UnitBuilderSO)building).unitBuildable[i].ToString();
                         break;
@@ -79,22 +79,22 @@ public class Building : MonoBehaviour
                 for (int i = 0; i < ((UnitBuilderSO)building).droppableUnits.Length; i++)
                 {
                     // SOLDIER
-                    if (((UnitBuilderSO)building).droppableUnits[i].unitType == Enums.UnitName.Soldier)
+                    if (((UnitBuilderSO)building).droppableUnits[i].unitName == Enums.UnitName.Soldier)
                     {
                         UI_Manager.instance.buildingWindow_unitsNames[1].text = ((UnitBuilderSO)building).unitBuildable[i].ToString();
                     }
                     // GRENADIER
-                    else if (((UnitBuilderSO)building).droppableUnits[i].unitType == Enums.UnitName.Grenadier)
+                    else if (((UnitBuilderSO)building).droppableUnits[i].unitName == Enums.UnitName.Grenadier)
                     {
                         UI_Manager.instance.buildingWindow_unitsNames[2].text = ((UnitBuilderSO)building).unitBuildable[i].ToString();
                     }
                     // SNIPER
-                    else if (((UnitBuilderSO)building).droppableUnits[i].unitType == Enums.UnitName.Sniper)
+                    else if (((UnitBuilderSO)building).droppableUnits[i].unitName == Enums.UnitName.Sniper)
                     {
                         UI_Manager.instance.buildingWindow_unitsNames[3].text = ((UnitBuilderSO)building).unitBuildable[i].ToString();
                     }
                     // GUNNER
-                    else if (((UnitBuilderSO)building).droppableUnits[i].unitType == Enums.UnitName.Gunner)
+                    else if (((UnitBuilderSO)building).droppableUnits[i].unitName == Enums.UnitName.Gunner)
                     {
                         UI_Manager.instance.buildingWindow_unitsNames[4].text = ((UnitBuilderSO)building).unitBuildable[i].ToString();
                     }
