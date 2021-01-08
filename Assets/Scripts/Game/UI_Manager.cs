@@ -112,7 +112,7 @@ public class UI_Manager : MonoBehaviour
             if (activeBuilding.unitsInCreationQueue.Count > 0)
             {
                 unitsInCreationCount = activeBuilding.unitsInCreationQueue.Count; // UNIT COUNT                
-                buildingWindow_CreationUnitBar_fill.fillAmount = activeBuilding.curTimeBuilder / activeBuilding.unitsInCreationQueue[activeBuilding.unitsInCreationQueue.Count - 1].makingTime; // FILL BAR
+                buildingWindow_CreationUnitBar_fill.fillAmount = activeBuilding.curTimeBuilder / activeBuilding.unitsInCreationQueue[0].makingTime; // FILL BAR
             }
             else
             {

@@ -106,7 +106,7 @@ public class Selection : MonoBehaviour
                     {
                         if (col.gameObject.CompareTag("Unit") == true)
                         {
-                            //Debug.Log("add unit to selection");
+                            Debug.Log("add unit to selection");
                             // do not select an unit a second time
                             if (!col.GetComponent<Unit>().unit.isSelected)
                             {
@@ -116,6 +116,8 @@ public class Selection : MonoBehaviour
                                 col.GetComponent<Unit>().unit.isSelected = true;
                                 // add unit to the select unit list
                                 selectedUnit.Add(col.GetComponent<Unit>());
+
+                                Debug.Log("Unit selected");
                             }
                         }
                     }

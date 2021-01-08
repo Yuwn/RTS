@@ -66,6 +66,8 @@ public class Unit : MonoBehaviour
         navMeshAgent.speed = unit.maxMoveSpeed;
         //navMeshAgent.enabled = false;
         //Debug.Log("0 : " + transform.position);
+
+        unit.isSelected = false;
     }
 
     // Update is called once per frame

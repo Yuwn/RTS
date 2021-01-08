@@ -109,16 +109,16 @@ public class Building : MonoBehaviour
         {
 
             //Debug.Log("3 : Creation request sorting...");
-            if (ResourcesManager.instance.FoodQuantity >= unitsInCreationRequest[unitsInCreationRequest.Count - 1].cost_food
-                && ResourcesManager.instance.WoodQuantity >= unitsInCreationRequest[unitsInCreationRequest.Count - 1].cost_wood)
+            if (ResourcesManager.instance.FoodQuantity >= unitsInCreationRequest[0].cost_food
+                && ResourcesManager.instance.WoodQuantity >= unitsInCreationRequest[0].cost_wood)
             {
                 //Debug.Log("4 : Consume resources to create unit");
-                ResourcesManager.instance.UseFood(unitsInCreationRequest[unitsInCreationRequest.Count - 1].cost_food);
-                ResourcesManager.instance.UseWood(unitsInCreationRequest[unitsInCreationRequest.Count - 1].cost_wood);
+                ResourcesManager.instance.UseFood(unitsInCreationRequest[0].cost_food);
+                ResourcesManager.instance.UseWood(unitsInCreationRequest[0].cost_wood);
                 //Debug.Log("5 : Unit added in creation queue");
-                unitsInCreationQueue.Add(unitsInCreationRequest[unitsInCreationRequest.Count - 1]);
+                unitsInCreationQueue.Add(unitsInCreationRequest[0]);
             }
-            unitsInCreationRequest.Remove(unitsInCreationRequest[unitsInCreationRequest.Count - 1]);
+            unitsInCreationRequest.Remove(unitsInCreationRequest[0]);
             //Debug.Log("6 : Unit removed from creation request");
 
             //Debug.Log("Unit in request : " + unitsInCreationRequest.Count);
@@ -131,12 +131,12 @@ public class Building : MonoBehaviour
         curTimeBuilder += Time.deltaTime;
 
         //Debug.Log("7 : Unit in creation...");
-        if (curTimeBuilder > unitsInCreationQueue[unitsInCreationQueue.Count - 1].makingTime)
+        if (curTimeBuilder > unitsInCreationQueue[0].makingTime)
         {
             curTimeBuilder = 0;
 
-            GameObject go = Instantiate(unitsInCreationQueue[unitsInCreationQueue.Count - 1].unitPrefab.gameObject);
-            unitsInCreationQueue.Remove(unitsInCreationQueue[unitsInCreationQueue.Count - 1]);
+            GameObject go = Instantiate(unitsInCreationQueue[0].unitPrefab.gameObject);
+            unitsInCreationQueue.Remove(unitsInCreationQueue[0]);
 
             go.GetComponent<NavMeshAgent>().Warp(InitPos.position);
 

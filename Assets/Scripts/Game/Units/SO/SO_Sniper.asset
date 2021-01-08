@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb7a60d09bd45d14492f80d825ea17ed, type: 3}
-  m_Name: SO_Grenadier
+  m_Name: SO_Sniper
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 8461880518352834895, guid: 14d2d91a88724bd40b828c6cd75def40, type: 3}
-  unitName: 3
+  unitPrefab: {fileID: 8461880518352834895, guid: aecc6fc6122a92540b2184ab2b2445ff, type: 3}
+  unitName: 4
   maxHealth: 100
   maxMoveSpeed: 3.5
   atkSpeed: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
   job_harvester: 0
   job_builder: 0
   job_fighter: 1
-  job_demolition: 1
+  job_demolition: 0
   canUseSpells: 0
   spell_aoe: 0
   spell_monoCible: 0
