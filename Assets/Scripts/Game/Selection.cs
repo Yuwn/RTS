@@ -31,6 +31,7 @@ public class Selection : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ClearUnitList();
+            UI_Manager.instance.previousActiveBuilding = UI_Manager.instance.activeBuilding;
             UI_Manager.instance.activeBuilding = null;
         }
 
@@ -46,12 +47,6 @@ public class Selection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 selectionBoxStart = new Vector3(hit.point.x, 0f, hit.point.z);
-                //if (hit.collider.gameObject.CompareTag("Unit") == true)
-                //{
-                //    //Debug.Log(hit.collider.name);
-                //    //hit.collider.GetComponent<MeshRenderer>().material.shader = selectedUnitMaterial;
-                //    selectedUnit.Add(hit.collider.GetComponent<NavMeshAgent>());
-                //}
             }
         }
 
@@ -67,7 +62,6 @@ public class Selection : MonoBehaviour
         // LEFT CLIC RELEASED
         if (Input.GetMouseButtonUp(0))
         {
-
             RaycastHit2D hit2D = Physics2D.Raycast(Input.mousePosition, Vector2.one, Mathf.Infinity, ~5);
             if (hit2D.collider == null)
             {
@@ -80,10 +74,12 @@ public class Selection : MonoBehaviour
                         || _hit.collider.gameObject.CompareTag("Barrack")
                         || _hit.collider.gameObject.CompareTag("Storage"))
                     {
+                        UI_Manager.instance.previousActiveBuilding = UI_Manager.instance.activeBuilding;
                         UI_Manager.instance.activeBuilding = _hit.collider.gameObject.GetComponent<Building>();
                     }
                     else
                     {
+                        UI_Manager.instance.previousActiveBuilding = UI_Manager.instance.activeBuilding;
                         UI_Manager.instance.activeBuilding = null;
                     }
                 }
@@ -110,7 +106,7 @@ public class Selection : MonoBehaviour
                     {
                         if (col.gameObject.CompareTag("Unit") == true)
                         {
-                            Debug.Log("add unit to selection");
+                            //Debug.Log("add unit to selection");
                             // do not select an unit a second time
                             if (!col.GetComponent<Unit>().unit.isSelected)
                             {
@@ -163,7 +159,7 @@ public class Selection : MonoBehaviour
                         unit.ChangeState(Unit.UnitState.GoTo_Tree);
                     }
                 }
-               else if (hit.collider.CompareTag("Food") == true)
+                else if (hit.collider.CompareTag("Food") == true)
                 {
                     foreach (Unit unit in selectedUnit)
                     {
@@ -178,7 +174,7 @@ public class Selection : MonoBehaviour
                 {
                     if (UI_Manager.instance.activeBuilding.building.buildingType == Enums.BuildingType.UnitBuilder)
                     {
-                        Debug.Log("change dest pos");
+                        //Debug.Log("change dest pos");
                         //UI_Manager.instance.activeBuilding.DestPos.position = new Vector3(hit.collider.transform.position.x, UI_Manager.instance.activeBuilding.DestPos.position.y, hit.collider.transform.position.z);
                     }
                 }

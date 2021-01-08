@@ -65,13 +65,13 @@ public class Unit : MonoBehaviour
 
         navMeshAgent.speed = unit.maxMoveSpeed;
         //navMeshAgent.enabled = false;
-        Debug.Log("0 : " + transform.position);
+        //Debug.Log("0 : " + transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("1 : " + transform.position);
+        //Debug.Log("1 : " + transform.position);
         healthUI();
 
         ActionBehaviour();

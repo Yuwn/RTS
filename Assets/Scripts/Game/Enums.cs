@@ -2,6 +2,14 @@
 
 public class Enums
 {
+    public enum BuildingWindowOpen
+    {
+        None,
+        Town,
+        Barrack,
+        Storage
+    }
+
     public enum BuildingType
     {
         None,
@@ -45,10 +53,10 @@ public class Enums
     public enum UnitName
     {
         None = 0,
-        Slave,
-        Soldier,
-        Grenadier,
-        Sniper,
-        Gunner
+        Slave = 1,
+        Soldier = 2,
+        Grenadier = 3,
+        Sniper = 4,
+        Gunner = 5
     }
 }

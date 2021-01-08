@@ -18,7 +18,6 @@ public class UnitBuilderSO : BuildingSO
     private UnitBuilderSO()
     {
         buildingType = Enums.BuildingType.UnitBuilder;
-        //Debug.Log(buildingType);
     }
 
     public void OnClick()

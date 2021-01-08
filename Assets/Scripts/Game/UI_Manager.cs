@@ -29,6 +29,7 @@ public class UI_Manager : MonoBehaviour
     public int unitsInCreationCount = 0;
     [HideInInspector] public bool isWinBuildingOpened = false;
     public Building activeBuilding = null;
+    public Building previousActiveBuilding = null;
     #endregion
 
 
@@ -51,7 +52,6 @@ public class UI_Manager : MonoBehaviour
 
     private void WindowGateKeeper()
     {
-
         if (activeBuilding == null)
         {
             buildingWindow_bg.SetActive(false);
@@ -74,23 +74,34 @@ public class UI_Manager : MonoBehaviour
     {
         if (activeBuilding != null)
         {
-            Debug.Log(activeBuilding.name);
-            foreach (GameObject grid in buildingWindow_unitGrid)
+            //Debug.Log(activeBuilding.name);
+
+            if (previousActiveBuilding != activeBuilding)
             {
-                grid.SetActive(false);
+                previousActiveBuilding = activeBuilding;
+
+                foreach (GameObject grid in buildingWindow_unitGrid)
+                {
+                    grid.SetActive(false);
+                }
             }
 
             buildingName.text = activeBuilding.building.buildingPrefab.name;
 
             if (activeBuilding.building.buildingPrefab.name == "TownHall")
             {
-
                 buildingWindow_unitGrid[0].SetActive(true);
             }
             else if (activeBuilding.building.buildingPrefab.name == "Barrack")
             {
                 buildingWindow_unitGrid[1].SetActive(true);
             }
+
+            //CREATION UNIT BAR - ACTIVE / UNACTIVE
+            if (((UnitBuilderSO)activeBuilding.building).droppableUnits.Length > 0)
+                buildingWindow_CreationUnitBar.SetActive(true);
+            else
+                buildingWindow_CreationUnitBar.SetActive(false);
         }
     }
 
@@ -98,45 +109,39 @@ public class UI_Manager : MonoBehaviour
     {
         if (activeBuilding != null)
         {
-            // FILL BAR
-            buildingWindow_CreationUnitBar_fill.fillAmount = activeBuilding.curTimeBuilder / activeBuilding.unitsInCreationQueue[unitsInCreationCount - 1].makingTime;
-            // UNIT COUNT
-            unitsInCreationCount = activeBuilding.unitsInCreationQueue.Count;
+            if (activeBuilding.unitsInCreationQueue.Count > 0)
+            {
+                unitsInCreationCount = activeBuilding.unitsInCreationQueue.Count; // UNIT COUNT                
+                buildingWindow_CreationUnitBar_fill.fillAmount = activeBuilding.curTimeBuilder / activeBuilding.unitsInCreationQueue[activeBuilding.unitsInCreationQueue.Count - 1].makingTime; // FILL BAR
+            }
+            else
+            {
+                unitsInCreationCount = 0;
+                buildingWindow_CreationUnitBar_fill.fillAmount = 0;
+            }
         }
         else
         {
-            // UNFILL BAR
-            buildingWindow_CreationUnitBar_fill.fillAmount = 0;
-            // SET COUNT AT 0
-            unitsInCreationCount = 0;
+            buildingWindow_CreationUnitBar_fill.fillAmount = 0; // UNFILL BAR
+            unitsInCreationCount = 0; // SET COUNT AT 0
         }
         buildingWindow_CreationUnitCount.text = unitsInCreationCount.ToString();
-
-        // CREATION UNIT BAR - ACTIVE/UNACTIVE
-        if (unitsInCreationCount > 0)
-        {
-            buildingWindow_CreationUnitBar.SetActive(true);
-        }
-        else
-        {
-            buildingWindow_CreationUnitBar.SetActive(false);
-        }
     }
 
     public void ClickOnUnitCreationButton(Enums.UnitName _unit)
     {
-        //Debug.Log("Clic on button :" + _unit.ToString());
+        //Debug.Log("1 : Clic on button :" + _unit.ToString());
         for (int i = 0; i < ((UnitBuilderSO)activeBuilding.building).droppableUnits.Length; i++)
         {
             if (((UnitBuilderSO)activeBuilding.building).droppableUnits[i].unitName == _unit)
             {
-                //unitRequesting = Instantiate(((UnitBuilderSO)activeBuilding.building).droppableUnits[i]);
+                //Debug.Log("2 : " + _unit.ToString() + " asked");
                 UnitSO unitRequesting = Instantiate(((UnitBuilderSO)activeBuilding.building).droppableUnits[i]);
                 activeBuilding.unitsInCreationRequest.Add(unitRequesting);
+                //Debug.Log("2' : " + _unit.ToString() + " added in requesting queue");
                 break;
             }
         }
-        //Debug.Log(_unit.ToString() + " added in requesting queue");
     }
 
     private void InitListeners()
@@ -147,7 +152,6 @@ public class UI_Manager : MonoBehaviour
         buildingWindow_unitsButtons[3].onClick.AddListener(() => ClickOnUnitCreationButton(Enums.UnitName.Sniper));
         buildingWindow_unitsButtons[4].onClick.AddListener(() => ClickOnUnitCreationButton(Enums.UnitName.Gunner));
     }
-
 
     private void ResourcesWindowUpdate()
     {

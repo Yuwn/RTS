@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: SO_Slave
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 8461880518352834895, guid: f2c49a59419d3114eb14ab75250a5182, type: 3}
-  unitType: 1
+  unitName: 1
   maxHealth: 60
   maxMoveSpeed: 3.5
   atkSpeed: 1
   atkDamage: 20
-  isSelected: 0
+  isSelected: 1
   maxCapacity: 10
   makingTime: 1
   cost_food: 50

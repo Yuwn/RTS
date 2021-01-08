@@ -107,19 +107,22 @@ public class Building : MonoBehaviour
     {
         if (unitsInCreationRequest.Count > 0)
         {
-            //Debug.Log("creation request sorting...");
+
+            //Debug.Log("3 : Creation request sorting...");
             if (ResourcesManager.instance.FoodQuantity >= unitsInCreationRequest[unitsInCreationRequest.Count - 1].cost_food
                 && ResourcesManager.instance.WoodQuantity >= unitsInCreationRequest[unitsInCreationRequest.Count - 1].cost_wood)
             {
-                //Debug.Log("Consume resources to create unit");
+                //Debug.Log("4 : Consume resources to create unit");
                 ResourcesManager.instance.UseFood(unitsInCreationRequest[unitsInCreationRequest.Count - 1].cost_food);
                 ResourcesManager.instance.UseWood(unitsInCreationRequest[unitsInCreationRequest.Count - 1].cost_wood);
-                //Debug.Log("Add unit to creation");
-                //Debug.Log("Unit added in creation queue");
+                //Debug.Log("5 : Unit added in creation queue");
                 unitsInCreationQueue.Add(unitsInCreationRequest[unitsInCreationRequest.Count - 1]);
             }
             unitsInCreationRequest.Remove(unitsInCreationRequest[unitsInCreationRequest.Count - 1]);
-            //Debug.Log("Unit removed from creation request");
+            //Debug.Log("6 : Unit removed from creation request");
+
+            //Debug.Log("Unit in request : " + unitsInCreationRequest.Count);
+
         }
     }
 
@@ -127,8 +130,7 @@ public class Building : MonoBehaviour
     {
         curTimeBuilder += Time.deltaTime;
 
-        //Debug.Log("Unit in creation...");
-
+        //Debug.Log("7 : Unit in creation...");
         if (curTimeBuilder > unitsInCreationQueue[unitsInCreationQueue.Count - 1].makingTime)
         {
             curTimeBuilder = 0;
@@ -136,13 +138,12 @@ public class Building : MonoBehaviour
             GameObject go = Instantiate(unitsInCreationQueue[unitsInCreationQueue.Count - 1].unitPrefab.gameObject);
             unitsInCreationQueue.Remove(unitsInCreationQueue[unitsInCreationQueue.Count - 1]);
 
-            //go.transform.position = InitPos.position;
             go.GetComponent<NavMeshAgent>().Warp(InitPos.position);
-            //go.GetComponent<NavMeshAgent>().enabled = true;
 
-            // go.GetComponent<NavMeshAgent>().SetDestination(DestPos.position);
-            //Debug.Log("Unit created");
+            //Debug.Log("8 : Unit created");
         }
+
+        //Debug.Log("Unit in queue : " + unitsInCreationQueue.Count);
         yield return 0;
     }
 }
